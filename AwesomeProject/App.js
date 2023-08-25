@@ -18,7 +18,7 @@ export default function App() {
       <ImageBackground source={require('./img/PhotoBG.png')} resizeMode="cover" style={styles.image}>
       <Text style={styles.text}>Open up App.js to start working on your app!</Text>
       {/* <Image source={require('./img/PhotoBG.png')} style={{width: 500, height: 500}}/> */}
-      <RegistrationScreen />
+      <RegistrationScreen/>
       {/* <LoginScreen/>
       <PostsScreen/> */}
       {/* <Image source={require('./img/PhotoBG.png')}/> */}
@@ -45,6 +45,5 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-
   }
 });
