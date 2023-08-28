@@ -10,23 +10,29 @@ import {
 } from "react-native";
 import addButton from "../img/round-add-button.svg";
 import add from "../img/add.png";
-import { CustomButton } from "../components/addButton/addButton";
+import { CustomButton } from "../components/Buttons/addButton";
 import { SvgXml } from "react-native-svg";
+import { StartButton } from "../components/Buttons/startButton";
 
 
 
 export const RegistrationScreen = () => {
+  const onPressRegistration = () => {
+    console.log('REGISTERED')
+  }
+
+
   return (
     <View style={styles.container}>
       <View style={styles.imgThumb}>
-        <Image style={styles.img} />
-        {/* <Button style={styles.button} title='+' onPress={() => console.log('Button pressed')} /> */}
+        <Image style={styles.img} />        
         <CustomButton          
           onPress={() => console.log("Button pressed")}
         />
       </View>
       <Text style={styles.text}>Реєстрація</Text>
-      <Button title="Зареєструватися" onPress={() => console.log('REGISTERED')} style={styles.button}/>      
+      {/* <Button title="Зареєструватися" onPress={() => onPressRegistration()} style={styles.button}/> */}
+      <StartButton title={'Зареєструватися'} onPress={onPressRegistration}/>      
     </View>
   );
 };
@@ -34,6 +40,10 @@ export const RegistrationScreen = () => {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
+    
+    paddingLeft: 16,
+    paddingRight: 16,
+    
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",

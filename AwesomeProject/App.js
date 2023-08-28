@@ -16,7 +16,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./img/PhotoBG.png')} resizeMode="cover" style={styles.image}>
-      <Text style={styles.text}>Open up App.js to start working on your app!</Text>
+      <Text style={styles.text}>HELLO WORLD!</Text>
       {/* <Image source={require('./img/PhotoBG.png')} style={{width: 500, height: 500}}/> */}
       <RegistrationScreen/>
       {/* <LoginScreen/>
