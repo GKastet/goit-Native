@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, Image, ImageBackground, ScrollView, StyleSheet, Text, TextInput, TextInputComponent, View } from 'react-native';
+import { Button, Image, ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import { RegistrationScreen } from './Screens/RegistrationScreen';
 import { LoginScreen } from './Screens/LoginScreen';
@@ -15,15 +15,12 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('./img/PhotoBG.png')} resizeMode="cover" style={styles.image}>
-      <Text style={styles.text}>HELLO WORLD!</Text>
-      {/* <Image source={require('./img/PhotoBG.png')} style={{width: 500, height: 500}}/> */}
-      <RegistrationScreen/>
-      {/* <LoginScreen/>
-      <PostsScreen/> */}
-      {/* <Image source={require('./img/PhotoBG.png')}/> */}
-      {/* <ImageBackground source={require('./img/PhotoBG.png')}/> */}
-      {/* <Button type='button'>Click</Button> */} 
+      <ImageBackground source={require('./img/PhotoBG.png')} resizeMode="cover" style={styles.image}>      
+      
+      {/* <RegistrationScreen/> */}
+      <LoginScreen/>
+      {/* <PostsScreen/> */}
+      
       <StatusBar style="auto" />
       </ImageBackground>
     </View>
@@ -42,8 +39,5 @@ const styles = StyleSheet.create({
     height: '100%',    
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  text: {
-    color: '#fff',
-  }
+  }, 
 });

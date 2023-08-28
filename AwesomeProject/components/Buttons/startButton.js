@@ -12,22 +12,15 @@ export const StartButton = ({ title, onPress }) => {
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    //   position: "absolute",
-    //   alignItems: "center",
-    //   justifyContent: "center",
-    //   width: 25,
-    //   height: 25,
-    //   bottom: 10,
-    //   right: 0,
-    //   borderRadius: 50,
-    //   backgroundColor: "white",
-  },
+  
   button: {
     width: '100%',
-    height: 51,
-    borderRadius: 100,
-    padding: '16px 32px',
+    height: 51,    
+    borderRadius: 100,    
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    marginTop: 43,
+    marginBottom: 16,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "orange",
