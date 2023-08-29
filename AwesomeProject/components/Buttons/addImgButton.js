@@ -25,9 +25,6 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 0,
     borderRadius: 50,
-    backgroundColor: "white",
-  },
-  btnText: {
-    color: "white",
-  },
+    backgroundColor: "white",    
+  },  
 });

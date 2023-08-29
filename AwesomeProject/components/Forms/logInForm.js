@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { StyleSheet, Pressable, TextInput, View, Text, Alert } from "react-native";
+import {
+  StyleSheet,
+  Pressable,
+  TextInput,
+  View,
+  Text,
+  Alert,
+} from "react-native";
 import { StartButton } from "../Buttons/startButton";
 
-export const RegistrationForm = () => {
-  const [login, setLogin] = useState("");
+export const LogInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -12,26 +18,17 @@ export const RegistrationForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmitRegistration = () => {    
-    console.log("login:", login);
+  const onPressLogIn = () => {
     console.log("email:", email);
     console.log("password:", password);
-    // Alert.alert(`${{login: login, email: email}}`)
-    Alert.alert(`login: ${login}, email: ${email}, password: ${password}`)
-    setLogin('');
-    setEmail('');
-    setPassword('');
-  };  
+    Alert.alert(`email: ${email} \n password: ${password}`);
+    setEmail("");
+    setPassword("");
+  };
 
   return (
     <>
       <View style={styles.inputBox}>
-        <TextInput
-          style={styles.input}
-          placeholder="Логін"
-          value={login}
-          onChangeText={setLogin}
-        />
         <TextInput
           style={styles.input}
           placeholder="Адреса електронної пошти"
@@ -60,8 +57,8 @@ export const RegistrationForm = () => {
         </View>
       </View>
       <StartButton
-        title={"Зареєструватися"}
-        onPress={onSubmitRegistration}
+        title={"Увійти"}
+        onPress={onPressLogIn}
       />
     </>
   );
