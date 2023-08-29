@@ -1,15 +1,3 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  ImageBackground,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
 import { useFonts } from "expo-font";
 import { RegistrationScreen } from "./Screens/RegistrationScreen";
 import { LoginScreen } from "./Screens/LoginScreen";
@@ -26,29 +14,11 @@ export default function App() {
 
   return (
     <>
-          {/* <RegistrationScreen /> */}
-          <LoginScreen/>
+          <RegistrationScreen />
+          {/* <LoginScreen/> */}
           {/* <PostsScreen/> */}
     </>
   );
 
   
 }
-
-// const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "#fff",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // },
-  // image: {
-  //   width: "100%",
-  //   height: "100%",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // },
-  // screenTouch: {
-  //   width: "100%",
-  // },
-// });

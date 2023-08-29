@@ -8,6 +8,7 @@ import {
   Text,
   View,
   KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import { AddImgButton } from "../components/Buttons/addImgButton";
 import { RegistrationForm } from "../components/Forms/registrationForm";
@@ -19,16 +20,16 @@ export const RegistrationScreen = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <ImageBackground
-          source={require("../img/PhotoBG.png")}
-          resizeMode="cover"
-          style={styles.image}
-        >
-          <KeyboardAvoidingView
-            style={styles.keyboard}
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            keyboardVerticalOffset={-50}
+      <KeyboardAvoidingView
+        style={styles.keyboard}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={-180}
+      >
+        <View style={styles.container}>
+          <ImageBackground
+            source={require("../img/PhotoBG.png")}
+            resizeMode="cover"
+            style={styles.image}
           >
             <View style={styles.containerR}>
               <View style={styles.imgThumb}>
@@ -41,20 +42,21 @@ export const RegistrationScreen = () => {
 
               <Text style={styles.bottomText}>Вже є акаунт? Увійти</Text>
             </View>
-          </KeyboardAvoidingView>
-        </ImageBackground>
-        <StatusBar style="auto" />
-      </View>
+          </ImageBackground>
+          <StatusBar style="auto" />
+        </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: "#fff",
-    // alignItems: "center",
+    flex: 1,    
+    alignItems: "center",
     // justifyContent: "center",
+    width: "100%",
+    // justifyContent: "flex-end",
   },
   image: {
     width: "100%",
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
   },
   keyboard: {
     flex: 1,
-    width: "100%",
+    // width: "100%",
   },
   containerR: {
     // flex: 1,
@@ -73,8 +75,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    // width: "100%",
-    height: 500,
+    // justifyContent: "flex-end",
+    width: "100%",
+    height: 549,
     marginTop: "auto",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
