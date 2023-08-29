@@ -7,13 +7,7 @@ export const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleEmail = (text) => {
-    setEmail(text);
-  };
-
-  const handlePassword = (text) => {
-    setPassword(text);
-  };
+  
 
 
   const onPressLogIn = () => {
@@ -30,14 +24,15 @@ export const LoginScreen = () => {
           style={styles.input}
           placeholder="Адреса електронної пошти"
           value={email}
-          onChangeText={handleEmail}
+          onChangeText={setEmail}          
+          // autoComplete="email"
         />
         <View>
           <TextInput
             style={styles.input}
             placeholder="Пароль"
             value={password}
-            onChangeText={handlePassword}
+            onChangeText={setPassword}            
           />
           <Text style={styles.showText}>Показати</Text>
         </View>
@@ -70,7 +65,7 @@ const styles = StyleSheet.create({
     marginBottom: 33,
     paddingVertical: 0,
     color: "#212121",
-    fontWeight: '500',
+    fontFamily: 'Roboto-Medium',
     fontSize: 30
   },
   inputBox: {
@@ -87,17 +82,20 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingStart: 16,
     paddingVertical: 16,
+    fontFamily: 'Roboto-Regular',
   },
   showText: {
     position: "absolute",
-    top: 14,
-    // transform: [{ translateX: '-50%' }],
-    // translateX: '-50%',
+    top: 16,
+    // transform: [{ translateX: '-50' }],
+    // translateX: '-50',
     right: 16,
-    color: '#1B4371',    
+    color: '#1B4371',
+    fontFamily: 'Roboto-Regular',    
   },
   bottomText: {
     color: '#1B4371',
+    fontFamily: 'Roboto-Regular',
   }
   
 });

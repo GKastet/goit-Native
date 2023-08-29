@@ -1,10 +1,13 @@
 import {
   StyleSheet,
-  // TouchableOpacity,  
-  Image,  
+  // TouchableOpacity,
+  Image,
   Text,
   TextInput,
   View,
+  //TouchableOpacity,
+  Pressable,
+  KeyboardAvoidingView,
 } from "react-native";
 import { AddImgButton } from "../components/Buttons/addImgButton";
 import { StartButton } from "../components/Buttons/startButton";
@@ -15,21 +18,14 @@ export const RegistrationScreen = () => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const onAddImgBtnPress = () => {
     console.log("Add img button pressed");
   };
 
-  const handleLogin = (text) => {
-    setLogin(text);
-  };
-
-  const handleEmail = (text) => {
-    setEmail(text);
-  };
-
-  const handlePassword = (text) => {
-    setPassword(text);
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   const onSubmitRegistration = () => {
@@ -46,29 +42,38 @@ export const RegistrationScreen = () => {
         <AddImgButton onPress={onAddImgBtnPress} />
       </View>
       <Text style={styles.text}>Реєстрація</Text>
-      <View style={styles.inputBox}>
+      
+        <View style={styles.inputBox}>
         <TextInput
           style={[styles.input, { width: "100%" }]}
           placeholder="Логін"
           value={login}
-          onChangeText={handleLogin}
+          onChangeText={setLogin}
         />
         <TextInput
           style={styles.input}
           placeholder="Адреса електронної пошти"
           value={email}
-          onChangeText={handleEmail}
+          onChangeText={setEmail}
+          // autoComplete="email"
         />
         <View>
           <TextInput
             style={styles.input}
             placeholder="Пароль"
             value={password}
-            onChangeText={handlePassword}
+            secureTextEntry={!showPassword}
+            onChangeText={setPassword}
           />
-          <Text style={styles.showText}>Показати</Text>
+          <Pressable
+            style={styles.showTextContainer}
+            onPress={toggleShowPassword}
+          >
+            <Text style={styles.showText}>Показати</Text>
+          </Pressable>
         </View>
-      </View>
+        </View>
+      {/* </KeyboardAvoidingView> */}
 
       <StartButton
         title={"Зареєструватися"}
@@ -80,7 +85,7 @@ export const RegistrationScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {    
+  container: {
     paddingLeft: 16,
     paddingRight: 16,
     backgroundColor: "#fff",
@@ -112,13 +117,16 @@ const styles = StyleSheet.create({
     marginTop: 32,
     marginBottom: 33,
     color: "#212121",
-    fontWeight: "500",
+    fontFamily: "Roboto-Medium",
+    // fontWeight: "500",
     fontSize: 30,
   },
   bottomText: {
     color: "#1B4371",
+    fontFamily: "Roboto-Regular",
   },
   inputBox: {
+    // flex: 1,
     display: "flex",
     width: "100%",
     gap: 16,
@@ -126,20 +134,33 @@ const styles = StyleSheet.create({
 
   input: {
     // display: 'flex',
-    // width: "100%",
+    width: "100%",
+    // position: "relative",
     height: 50,
     borderColor: "gray",
     borderWidth: 1,
     borderRadius: 10,
     paddingStart: 16,
     paddingVertical: 16,
+    fontFamily: "Roboto-Regular",
+  },
+  showTextContainer: {
+    position: "absolute",
+    top: 0,
+    right: 16,
+    height: "100%",
+    justifyContent: "center",
   },
   showText: {
-    position: "absolute",
-    top: 14,
-    // transform: [{ translateX: '-50%' }],
-    // translateX: '-50%',
-    right: 16,
-    color: '#1B4371',    
-  }
+    color: "#1B4371",
+  },
+  // showText: {
+  //   position: "absolute",
+  //   // top: 14,
+  //   // transform: [{ translateX: '-50%' }],
+  //   // translateX: '-50%',
+  //   right: 16,
+  //   color: "#1B4371",
+  //   fontFamily: 'Roboto-Regular',
+  // },
 });

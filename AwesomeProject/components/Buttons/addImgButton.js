@@ -1,16 +1,16 @@
-import { TouchableOpacity, StyleSheet, Text, View, Button } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, Button, Pressable } from "react-native";
 import { AntDesign } from '@expo/vector-icons'
 
 
 export const AddImgButton = ({ onPress }) => {
   return (
     
-    <TouchableOpacity       
+    <Pressable       
       style={styles.buttonContainer}
       onPress={()=>onPress()}
     >
       <AntDesign name="pluscircleo" size={24} color="orange" />
-    </TouchableOpacity>
+    </Pressable>
     
   );
 };
