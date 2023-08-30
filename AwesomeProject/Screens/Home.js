@@ -1,15 +1,17 @@
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
+import { useNavigation } from "@react-navigation/native";
+
 //import { PostsScreen, CreatePostsScreen, ProfileScreen } from "../Screens";
 
 const Tabs = createBottomTabNavigator();
 const screenOptions = {
   tabBarShowLabel: false,
-  headerShown: false,
+  // headerShown: false,
   tabBarStyle: {
     position: "absolute",
     bottom: 0,
@@ -22,12 +24,32 @@ const screenOptions = {
   },
 };
 const Home = () => {
+  const navigation = useNavigation();
   return (
     <Tabs.Navigator screenOptions={screenOptions}>
       <Tabs.Screen
-        name="Публікації"
+        name="PostsScreen"
         component={PostsScreen}
         options={{
+          title: "Posts",
+          headerTitle: 'Публікації',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontFamily: 'Roboto-Medium',
+            color: '#212121',            
+          },
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate("Login")}
+              style={{ marginRight: 10 }}
+            >
+              <Feather
+                name="log-out"
+                size={24}
+                color="#BDBDBD"
+              />
+            </Pressable>
+          ),
           tabBarIcon: ({ focused }) => {
             return (
               <View>

@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    // justifyContent: "flex-end",
+    backgroundColor: '#fff',
+    
   },
 })

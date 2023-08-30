@@ -32,7 +32,7 @@ export default function App() {
           <MainStack.Screen
             name="Home"
             component={Home}
-            options={{ headerShown: false }}
+            options={{ headerShown: false}}
           />
           
         </MainStack.Navigator>
