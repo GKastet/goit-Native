@@ -1,0 +1,35 @@
+<svg width="70" height="40" viewBox="0 0 70 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="70" height="40" fill="#E5E5E5"/>
+<g id="&#208;&#161;&#209;&#130;&#208;&#178;&#208;&#190;&#209;&#128;&#208;&#184;&#209;&#130;&#208;&#184; &#208;&#191;&#209;&#131;&#208;&#177;&#208;&#187;&#209;&#150;&#208;&#186;&#208;&#176;&#209;&#134;&#209;&#150;&#209;&#142;  (step 3)" clip-path="url(#clip0_0_1)">
+<rect width="375" height="812" transform="translate(-153 -738)" fill="white"/>
+<g id="Tab Bar">
+<g id="Background">
+<g id="Background_2" filter="url(#filter0_bd_0_1)">
+<rect x="-153" y="-9" width="375" height="83" fill="white"/>
+</g>
+<g id="40 / Toolbar / new" clip-path="url(#clip1_0_1)">
+<rect id="Rectangle" width="70" height="40" rx="20" fill="#FF6C00"/>
+<path id="Union" fill-rule="evenodd" clip-rule="evenodd" d="M35.5 13.5H34.5V19.5H28.5V20.5H34.5V26.5H35.5V20.5H41.5V19.5H35.5V13.5Z" fill="white"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_bd_0_1" x="-180.183" y="-36.1828" width="429.366" height="137.366" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="13.5914"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_0_1"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-0.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/>
+<feBlend mode="normal" in2="effect1_backgroundBlur_0_1" result="effect2_dropShadow_0_1"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_0_1" result="shape"/>
+</filter>
+<clipPath id="clip0_0_1">
+<rect width="375" height="812" fill="white" transform="translate(-153 -738)"/>
+</clipPath>
+<clipPath id="clip1_0_1">
+<rect width="70" height="40" fill="white"/>
+</clipPath>
+</defs>
+</svg>

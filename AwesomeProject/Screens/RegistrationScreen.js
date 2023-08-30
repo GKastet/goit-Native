@@ -8,12 +8,17 @@ import {
   Text,
   View,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Pressable,
+  Button,
 } from "react-native";
 import { AddImgButton } from "../components/Buttons/addImgButton";
 import { RegistrationForm } from "../components/Forms/registrationForm";
+import { Link, useNavigation } from "@react-navigation/native";
 
-export const RegistrationScreen = () => {
+const RegistrationScreen = () => {
+  const navigation = useNavigation();
+
   const onAddImgBtnPress = () => {
     console.log("Add img button pressed");
   };
@@ -39,8 +44,12 @@ export const RegistrationScreen = () => {
               <Text style={styles.text}>Реєстрація</Text>
 
               <RegistrationForm />
-
-              <Text style={styles.bottomText}>Вже є акаунт? Увійти</Text>
+              <View style={styles.bottomTextBox}>
+                <Text style={styles.bottomText}>Вже є акаунт?</Text>
+                <Pressable onPress={() => navigation.navigate("Login")}>
+                  <Text style={styles.bottomTextLink}>Увійти</Text>
+                </Pressable>
+              </View>
             </View>
           </ImageBackground>
           <StatusBar style="auto" />
@@ -52,7 +61,7 @@ export const RegistrationScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,    
+    flex: 1,
     alignItems: "center",
     // justifyContent: "center",
     width: "100%",
@@ -103,8 +112,20 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Medium",
     fontSize: 30,
   },
+  bottomTextBox: {
+    display: "flex",
+    flexDirection: "row",
+  },
   bottomText: {
     color: "#1B4371",
     fontFamily: "Roboto-Regular",
   },
+  bottomTextLink: {
+    marginLeft: 6,
+    color: "#1B4371",
+    fontFamily: "Roboto-Regular",
+    textDecorationLine: "underline",
+  },
 });
+
+export default RegistrationScreen;

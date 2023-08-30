@@ -1,16 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { Feather } from '@expo/vector-icons'; 
 
 
-const PostsScreen = () => {
+const MapScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>PostsScreen</Text>
+      <Text>MapScreen</Text>
     </View>
   )
 }
 
-export default PostsScreen
+export default MapScreen
 
 const styles = StyleSheet.create({
   container: {

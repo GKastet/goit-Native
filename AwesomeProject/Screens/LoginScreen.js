@@ -7,11 +7,15 @@ import {
   Text,
   View,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Pressable,
 } from "react-native";
 import { LogInForm } from "../components/Forms/logInForm";
+import { useNavigation } from "@react-navigation/native";
 
-export const LoginScreen = () => {
+const LoginScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
@@ -30,9 +34,12 @@ export const LoginScreen = () => {
 
               <LogInForm />
 
-              <Text style={styles.bottomText}>
-                Немає акаунту? Зареєструватися
-              </Text>
+              <View style={styles.bottomTextBox}>
+                <Text style={styles.bottomText}>Немає акаунту?</Text>
+                <Pressable onPress={() => navigation.navigate("Registration")}>
+                  <Text style={styles.bottomTextLink}>Зареєструватися</Text>
+                </Pressable>
+              </View>
             </View>
           </ImageBackground>
           <StatusBar style="auto" />
@@ -44,7 +51,7 @@ export const LoginScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,    
+    flex: 1,
     // alignItems: "center",
     // justifyContent: "center",
     width: "100%",
@@ -83,8 +90,21 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Medium",
     fontSize: 30,
   },
+  bottomTextBox:{
+    display: 'flex',
+    flexDirection: 'row'
+  },
+
   bottomText: {
     color: "#1B4371",
     fontFamily: "Roboto-Regular",
   },
+  bottomTextLink: {
+    marginLeft: 6,
+    color: "#1B4371",
+    fontFamily: "Roboto-Regular",
+    textDecorationLine: "underline",
+  },
 });
+
+export default LoginScreen;
