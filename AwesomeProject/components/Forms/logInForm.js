@@ -8,6 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { StartButton } from "../Buttons/startButton";
+import { useNavigation } from "@react-navigation/native";
 
 export const LogInForm = () => {
   const [email, setEmail] = useState("");
@@ -18,6 +19,8 @@ export const LogInForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const navigation = useNavigation();
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -25,9 +28,10 @@ export const LogInForm = () => {
   const onPressLogIn = () => {
     console.log("email:", email);
     console.log("password:", password);
-    Alert.alert(`email: ${email} \n password: ${password}`);
+    //Alert.alert(`email: ${email} \n password: ${password}`);
     setEmail("");
     setPassword("");
+    navigation.navigate("Home");
   };
 
   const isFocus = (name) => {    
@@ -62,7 +66,7 @@ export const LogInForm = () => {
           onChangeText={setEmail}
           onFocus={() => isFocus("email")}
           onBlur={() => isBlur("email")}
-          style={isEmailFocus ? styles.inputActive : styles.input}
+          style={isEmailFocus ? styles.inputActive : styles.input}          
         />
         <View>
           <TextInput            

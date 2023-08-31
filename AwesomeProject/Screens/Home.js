@@ -64,9 +64,16 @@ const Home = () => {
         }}
       />
       <Tabs.Screen
-        name="Створити публікацію"
+        name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
+          title: "CreatePosts",
+          headerTitle: 'Створити публікацію',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontFamily: 'Roboto-Medium',
+            color: '#212121',            
+          },
           tabBarIcon: ({ focused }) => {
             return (
               <View
@@ -83,9 +90,16 @@ const Home = () => {
         }}
       />
       <Tabs.Screen
-        name="Профіль"
+        name="ProfileScreen"
         component={ProfileScreen}
         options={{
+          title: "Profile",
+          headerTitle: 'Профіль',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontFamily: 'Roboto-Medium',
+            color: '#212121',            
+          },
           tabBarIcon: ({ focused }) => {
             return (
               <View>
