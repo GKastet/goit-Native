@@ -83,7 +83,8 @@ const Home = () => {
             borderBottomWidth: 1,
             borderBottomColor: '#0000004D',
             boxShadow: '0px 0.5px 0px 0px #0000004D',
-          },
+          },          
+          tabBarStyle: {display: 'none'},
           headerLeft: () => (
             <Pressable
               onPress={() => navigation.navigate("PostsScreen")}
@@ -99,12 +100,12 @@ const Home = () => {
           tabBarIcon: ({ focused }) => {
             return (
               <View
-                style={focused ? styles.createPostsActive : styles.createPosts}
+                style={styles.createPostsActive}
               >
                 <Feather
                   name="plus"
                   size={24}
-                  color={focused ? "#fff" : "#FF6C00"}
+                  color={focused ? "#212121CC" : "#fff"}
                 />
               </View>
             );
@@ -145,16 +146,16 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
-  createPosts: {
-    width: 70,
-    height: 40,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: "#FF6C00",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  // createPosts: {
+  //   width: 70,
+  //   height: 40,
+  //   borderRadius: 20,
+  //   borderWidth: 2,
+  //   borderColor: "#FF6C00",
+  //   backgroundColor: "#fff",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // },
   createPostsActive: {
     width: 70,
     height: 40,

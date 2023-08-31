@@ -1,12 +1,12 @@
 import { TouchableOpacity, StyleSheet, Text, Pressable, View, Button } from "react-native";
 
-export const StartButton = ({ title, onPress }) => {
+export const StartButton = ({ title, onPress, bcgColor, textColor }) => {
   return (
     <Pressable
       onPress={() => onPress()}
-      style={styles.button}
+      style={[styles.button, {backgroundColor: bcgColor}]}
     >
-      <Text style={styles.btnText}>{title}</Text>
+      <Text style={[styles.btnText, {color: textColor}]}>{title}</Text>
     </Pressable>
   );
 };
@@ -20,14 +20,14 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 32,
     // marginTop: 43,
-    marginBottom: 16,
+    // marginBottom: 16,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "orange",
+    // backgroundColor: "orange",
   },
 
   btnText: {
-    color: "white",
+    // color: "#fff",
     fontFamily: 'Roboto-Regular',
   },
 });

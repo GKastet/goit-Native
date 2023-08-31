@@ -108,11 +108,13 @@ export const RegistrationForm = () => {
           </Pressable>
         </View>
       </View>
-      <View style={{ width: "100%", marginTop: 43 }}>
-      <StartButton
-        title={"Зареєструватися"}
-        onPress={onSubmitRegistration}
-      />
+      <View style={{ width: "100%", marginTop: 43, marginBottom: 16 }}>
+        <StartButton
+          title={"Зареєструватися"}
+          onPress={onSubmitRegistration}
+          bcgColor="#FF6C00"
+          textColor='#fff'
+        />
       </View>
     </>
   );

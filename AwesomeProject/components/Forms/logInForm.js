@@ -35,42 +35,42 @@ export const LogInForm = () => {
     // clear()
   };
 
-  const isFocus = (name) => {    
-    if(name === 'email'){
-      setIsEmailFocus(true)
-      return
-    }else if(name === 'password'){
-      setIsPasswordFocus(true)
-      return
+  const isFocus = (name) => {
+    if (name === "email") {
+      setIsEmailFocus(true);
+      return;
+    } else if (name === "password") {
+      setIsPasswordFocus(true);
+      return;
     }
-    return
+    return;
   };
 
-  const isBlur = (name) => {    
-    if(name === 'email'){
-      setIsEmailFocus(false)
-      return
-    }else if(name === 'password'){
-      setIsPasswordFocus(false)
-      return
+  const isBlur = (name) => {
+    if (name === "email") {
+      setIsEmailFocus(false);
+      return;
+    } else if (name === "password") {
+      setIsPasswordFocus(false);
+      return;
     }
-    return    
+    return;
   };
 
   return (
     <>
       <View style={styles.inputBox}>
-        <TextInput          
+        <TextInput
           placeholder="Адреса електронної пошти"
           autoComplete="email"
           value={email}
           onChangeText={setEmail}
           onFocus={() => isFocus("email")}
           onBlur={() => isBlur("email")}
-          style={isEmailFocus ? styles.inputActive : styles.input}          
+          style={isEmailFocus ? styles.inputActive : styles.input}
         />
         <View>
-          <TextInput            
+          <TextInput
             placeholder="Пароль"
             value={password}
             secureTextEntry={!showPassword}
@@ -91,11 +91,13 @@ export const LogInForm = () => {
           </Pressable>
         </View>
       </View>
-      <View style={{ width: "100%", marginTop: 43 }}>
-      <StartButton
-        title={"Увійти"}
-        onPress={onPressLogIn}
-      />
+      <View style={{ width: "100%", marginTop: 43, marginBottom: 16 }}>
+        <StartButton
+          title={"Увійти"}
+          onPress={onPressLogIn}
+          bcgColor="#FF6C00"
+          textColor='#fff'
+        />
       </View>
     </>
   );

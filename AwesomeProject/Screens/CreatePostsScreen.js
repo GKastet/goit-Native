@@ -14,12 +14,25 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { useState } from "react";
 import { StartButton } from "../components/Buttons/startButton";
+import CameraAct from "../components/Camera/Camera";
+import { useNavigation } from "@react-navigation/native";
 
 const CreatePostsScreen = () => {
-  const [name, setName] = useState("");
+  const [nameFoto, setNameFoto] = useState("");
   const [place, setPlace] = useState("");
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isPlaceFocus, setIsPlaceFocus] = useState(false);
+
+  const navigation = useNavigation()
+  
+
+  const onPressPublicate = () => {
+    console.log("onPressPublicate");
+    console.log(nameFoto, place);
+    navigation.navigate('PostsScreen');
+    setNameFoto('');
+    setPlace('');
+  };
 
   const isFocus = (name) => {
     if (name === "name") {
@@ -50,28 +63,20 @@ const CreatePostsScreen = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={-200}
       >
+        
         <View style={styles.container}>
           <View>
             <View style={styles.imgThumb}>
-              <Image style={styles.img} />
-              <Pressable
-                style={styles.cameraBox}
-                onPress={() => console.log("camera pressed")}
-              >
-                <FontAwesome
-                  name="camera"
-                  size={24}
-                  color="#BDBDBD"
-                />
-              </Pressable>
+              {/* <Image style={styles.img} /> */}
+              <CameraAct/>              
             </View>
             <Text style={styles.text}>Завантажте фото</Text>
             <View style={{ gap: 16 }}>
               <TextInput
                 placeholder="Назва..."
                 placeholderTextColor="#BDBDBD"
-                value={name}
-                onChangeText={setName}
+                value={nameFoto}
+                onChangeText={setNameFoto}
                 maxLength={36}
                 cursorColor="#FF6C00"
                 onFocus={() => isFocus("name")}
@@ -107,9 +112,28 @@ const CreatePostsScreen = () => {
               </View>
             </View>
           </View>
-          <View style={{ width: "100%", marginTop: 20 }}>
-            <StartButton title={"Опубліковати"} />
+          <View
+            style={{
+              width: "100%",
+              marginTop: 20,
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}
+          >
+            <StartButton
+              title={"Опубліковати"}
+              onPress={onPressPublicate}
+              bcgColor={nameFoto && place ? "#FF6C00" : "#F6F6F6"}
+              textColor={nameFoto && place ? "#fff" : "#BDBDBD"}              
+            />
           </View>
+          <Pressable style={styles.basket} onPress={()=>console.log('basket pressed')}>
+            <Feather
+              name="trash-2"
+              size={24}
+              color="#BDBDBD"
+            />
+          </Pressable>
         </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
@@ -139,25 +163,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: "#E8E8E8",
     borderWidth: 1,
+    overflow: "hidden"
   },
-  img: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#F6F6F6",
-    borderRadius: 8,
-  },
-  cameraBox: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    transform: [{ translateX: -30 }, { translateY: -30 }],
-  },
+  // img: {
+  //   width: "100%",
+  //   height: "100%",
+  //   backgroundColor: "#F6F6F6",
+  //   borderRadius: 8,
+  // },  
   text: {
     fontFamily: "Roboto-Regular",
     fontSize: 16,
@@ -214,5 +227,15 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 18.75,
+  },
+  basket: {
+    width: 70,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "#F6F6F6",
+    alignItems: "center",
+    justifyContent: "center",
+    position: 'absolute',
+    bottom: 20    
   },
 });
