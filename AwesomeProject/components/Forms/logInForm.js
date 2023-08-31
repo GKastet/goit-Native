@@ -32,6 +32,7 @@ export const LogInForm = () => {
     setEmail("");
     setPassword("");
     navigation.navigate("Home");
+    // clear()
   };
 
   const isFocus = (name) => {    
@@ -90,10 +91,12 @@ export const LogInForm = () => {
           </Pressable>
         </View>
       </View>
+      <View style={{ width: "100%", marginTop: 43 }}>
       <StartButton
         title={"Увійти"}
         onPress={onPressLogIn}
       />
+      </View>
     </>
   );
 };

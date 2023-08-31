@@ -27,7 +27,7 @@ const LoginScreen = () => {
           <ImageBackground
             source={require("../img/PhotoBG.png")}
             resizeMode="cover"
-            style={styles.image}
+            style={styles.imageBCG}
           >
             <View style={styles.containerL}>
               <Text style={styles.text}>Увійти</Text>
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     width: "100%",
     // justifyContent: "flex-end",
   },
-  image: {
+  imageBCG: {
     width: "100%",
     height: "100%",
     alignItems: "center",

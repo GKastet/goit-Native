@@ -108,10 +108,12 @@ export const RegistrationForm = () => {
           </Pressable>
         </View>
       </View>
+      <View style={{ width: "100%", marginTop: 43 }}>
       <StartButton
         title={"Зареєструватися"}
         onPress={onSubmitRegistration}
       />
+      </View>
     </>
   );
 };

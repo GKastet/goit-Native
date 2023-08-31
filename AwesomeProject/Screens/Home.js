@@ -32,11 +32,16 @@ const Home = () => {
         component={PostsScreen}
         options={{
           title: "Posts",
-          headerTitle: 'Публікації',
-          headerTitleAlign: 'center',
+          headerTitle: "Публікації",
+          headerTitleAlign: "center",
           headerTitleStyle: {
-            fontFamily: 'Roboto-Medium',
-            color: '#212121',            
+            fontFamily: "Roboto-Medium",
+            color: "#212121",
+          },
+          headerStyle: {
+            borderBottomWidth: 1,
+            borderBottomColor: '#0000004D',
+            boxShadow: '0px 0.5px 0px 0px #0000004D',
           },
           headerRight: () => (
             <Pressable
@@ -68,12 +73,29 @@ const Home = () => {
         component={CreatePostsScreen}
         options={{
           title: "CreatePosts",
-          headerTitle: 'Створити публікацію',
-          headerTitleAlign: 'center',
+          headerTitle: "Створити публікацію",
+          headerTitleAlign: "center",
           headerTitleStyle: {
-            fontFamily: 'Roboto-Medium',
-            color: '#212121',            
+            fontFamily: "Roboto-Medium",
+            color: "#212121",
           },
+          headerStyle: {
+            borderBottomWidth: 1,
+            borderBottomColor: '#0000004D',
+            boxShadow: '0px 0.5px 0px 0px #0000004D',
+          },
+          headerLeft: () => (
+            <Pressable
+              onPress={() => navigation.navigate("PostsScreen")}
+              style={{ marginLeft: 10 }}
+            >
+              <Feather
+                name="arrow-left"
+                size={24}
+                color="#212121CC"
+              />
+            </Pressable>
+          ),
           tabBarIcon: ({ focused }) => {
             return (
               <View
@@ -94,11 +116,16 @@ const Home = () => {
         component={ProfileScreen}
         options={{
           title: "Profile",
-          headerTitle: 'Профіль',
-          headerTitleAlign: 'center',
+          headerTitle: "Профіль",
+          headerTitleAlign: "center",
           headerTitleStyle: {
-            fontFamily: 'Roboto-Medium',
-            color: '#212121',            
+            fontFamily: "Roboto-Medium",
+            color: "#212121",
+          },
+          headerStyle: {
+            borderBottomWidth: 1,
+            borderBottomColor: '#0000004D',
+            boxShadow: '0px 0.5px 0px 0px #0000004D',
           },
           tabBarIcon: ({ focused }) => {
             return (
