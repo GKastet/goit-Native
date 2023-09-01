@@ -1,3 +1,4 @@
+//AIzaSyBVX7tSMJO_-BnNRm4oR_Em2zpIy7mkQTY
 import { StyleSheet, Text, View } from 'react-native'
 
 

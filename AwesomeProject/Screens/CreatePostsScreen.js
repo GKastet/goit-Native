@@ -1,6 +1,7 @@
 import {
   Alert,
-  // Image,
+  Dimensions,
+  Image,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -13,30 +14,51 @@ import {
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 //import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StartButton } from "../components/Buttons/startButton";
 import CameraAct from "../components/Camera/Camera";
 import { useNavigation } from "@react-navigation/native";
+import MapView, { Marker } from "react-native-maps";
+import * as Location from "expo-location";
+import { PROVIDER_GOOGLE } from "react-native-maps";
 
 const CreatePostsScreen = () => {
   const [nameFoto, setNameFoto] = useState("");
   const [place, setPlace] = useState("");
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isPlaceFocus, setIsPlaceFocus] = useState(false);
+  const [location, setLocation] = useState(null);
+  const [foto, setFoto] = useState(null)
 
-  const navigation = useNavigation()
-  
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    (async () => {
+      let locationPermission =
+        await Location.requestForegroundPermissionsAsync();
+      if (locationPermission.status !== "granted") {
+        Alert.alert("Permission to access location is denied");
+        console.log("Permission to access location is denied");
+      }
+      let location = await Location.getCurrentPositionAsync();
+      const coordinates = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      };
+      setLocation(coordinates);
+    })();
+  }, []);
 
   const onPressPublicate = () => {
     console.log("onPressPublicate");
     console.log(nameFoto, place);
-    if(!nameFoto&&!place){
-      Alert.alert('fill up inputs!')
-      return
+    if (!nameFoto && !place) {
+      Alert.alert("fill up inputs!");
+      return;
     }
-    navigation.navigate('PostsScreen');
-    setNameFoto('');
-    setPlace('');
+    navigation.navigate("PostsScreen");
+    setNameFoto("");
+    setPlace("");
   };
 
   const isFocus = (name) => {
@@ -68,12 +90,12 @@ const CreatePostsScreen = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={-200}
       >
-        
         <View style={styles.container}>
           <View>
             <View style={styles.imgThumb}>
-              {/* <Image style={styles.img} /> */}
-              <CameraAct/>              
+              {foto ? <Image style={styles.img} source = {{uri:foto}}/> : <CameraAct fotoState={setFoto}/>}
+              
+              
             </View>
             <Text style={styles.text}>Завантажте фото</Text>
             <View style={{ gap: 16 }}>
@@ -129,10 +151,33 @@ const CreatePostsScreen = () => {
               title={"Опубліковати"}
               onPress={onPressPublicate}
               bcgColor={nameFoto && place ? "#FF6C00" : "#F6F6F6"}
-              textColor={nameFoto && place ? "#fff" : "#BDBDBD"}              
+              textColor={nameFoto && place ? "#fff" : "#BDBDBD"}
             />
           </View>
-          <Pressable style={styles.basket} onPress={()=>console.log('basket pressed')}>
+          <View style={styles.containerMap}>
+            {/* <MapView
+              provider={PROVIDER_GOOGLE}
+              style={styles.mapStyle}
+              region={{
+                ...location,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+              showsUserLocation={true}
+            >
+              {location && (
+                <Marker
+                  title="I am here"
+                  coordinate={location}
+                  description="Hello"
+                />
+              )}
+            </MapView> */}
+          </View>
+          <Pressable
+            style={styles.basket}
+            onPress={() => console.log("basket pressed")}
+          >
             <Feather
               name="trash-2"
               size={24}
@@ -168,14 +213,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: "#E8E8E8",
     borderWidth: 1,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   // img: {
   //   width: "100%",
   //   height: "100%",
   //   backgroundColor: "#F6F6F6",
   //   borderRadius: 8,
-  // },  
+  // },
   text: {
     fontFamily: "Roboto-Regular",
     fontSize: 16,
@@ -240,7 +285,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F6F6",
     alignItems: "center",
     justifyContent: "center",
-    position: 'absolute',
-    bottom: 20    
+    position: "absolute",
+    bottom: 20,
+  },
+  containerMap: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  mapStyle: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
 });

@@ -26,6 +26,7 @@ const screenOptions = {
 const Home = () => {
   const navigation = useNavigation();
   return (
+    
     <Tabs.Navigator screenOptions={screenOptions}>
       <Tabs.Screen
         name="PostsScreen"

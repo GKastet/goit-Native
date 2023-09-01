@@ -4,7 +4,7 @@ import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { FontAwesome } from "@expo/vector-icons";
 
-const CameraAct = () => {
+const CameraAct = ({fotoState}) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -56,6 +56,7 @@ const CameraAct = () => {
               if (cameraRef) {
                 const { uri } = await cameraRef.takePictureAsync();
                 await MediaLibrary.createAssetAsync(uri);
+                await fotoState(cameraRef)
               }
             }}
           >
