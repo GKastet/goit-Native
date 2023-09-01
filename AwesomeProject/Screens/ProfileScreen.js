@@ -7,7 +7,7 @@ const ProfileScreen = () => {
       {/* <Text>ProfileScreen</Text> */}
       <View style={styles.imgThumb}>
 
-      <CameraAct/>
+      {/* <CameraAct/> */}
       </View>
     </View>
   )

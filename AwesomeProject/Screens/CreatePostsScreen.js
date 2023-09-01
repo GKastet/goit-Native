@@ -1,5 +1,6 @@
 import {
-  Image,
+  Alert,
+  // Image,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -10,7 +11,7 @@ import {
   View,
 } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { FontAwesome } from "@expo/vector-icons";
+//import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { useState } from "react";
 import { StartButton } from "../components/Buttons/startButton";
@@ -29,6 +30,10 @@ const CreatePostsScreen = () => {
   const onPressPublicate = () => {
     console.log("onPressPublicate");
     console.log(nameFoto, place);
+    if(!nameFoto&&!place){
+      Alert.alert('fill up inputs!')
+      return
+    }
     navigation.navigate('PostsScreen');
     setNameFoto('');
     setPlace('');
