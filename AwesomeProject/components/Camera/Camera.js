@@ -4,7 +4,7 @@ import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { FontAwesome } from "@expo/vector-icons";
 
-const CameraAct = ({fotoState}) => {
+const CameraAct = ({fotoImg}) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -32,8 +32,19 @@ const CameraAct = ({fotoState}) => {
     );
   };
 
+  const fixFoto = async () => {
+    try{
+      const { uri } = await cameraRef.takePictureAsync();
+      // setFoto(uri)
+      fotoImg(uri)
+      await MediaLibrary.createAssetAsync(uri);
+    }catch(error){
+      console.log(error)
+    }
+  }
+
   return (
-    <View style={styles.container}>
+    <View style={styles.containerCamera}>
       <Camera
         style={styles.camera}
         type={type}
@@ -51,14 +62,7 @@ const CameraAct = ({fotoState}) => {
           </Pressable>
           <Pressable
             style={styles.cameraBox}
-            onPress={async () => {
-              console.log("camera pressed");
-              if (cameraRef) {
-                const { uri } = await cameraRef.takePictureAsync();
-                await MediaLibrary.createAssetAsync(uri);
-                await fotoState(cameraRef)
-              }
-            }}
+            onPress={fixFoto}          
           >
             <FontAwesome
               name="camera"
@@ -75,7 +79,7 @@ const CameraAct = ({fotoState}) => {
 export default CameraAct;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  containerCamera: { flex: 1 },
   camera: { flex: 1 },
   photoView: {
     flex: 1,

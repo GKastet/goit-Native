@@ -8,11 +8,21 @@ import {
   View,
 } from "react-native";
 import SinglePost from "../components/singlePost/singlePost";
+import { useRoute } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
 
 const PostsScreen = () => {
+  // const [fotoCoords, setFotoCoords] = useState(null)
   
 
+  // useEffect(()=>{
+  //   if(!fotoCoords)return
+  //   const { params: {fotoCoords} } = useRoute();
+  //   console.log('123', fotoCoords);
+  //   setFotoCoords(fotoCoords)
+  // }, [])
+//console.log('fotocoords', fotoCoords);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.user}>
