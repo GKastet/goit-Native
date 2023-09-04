@@ -26,7 +26,7 @@ import * as Location from "expo-location";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 
 const CreatePostsScreen = () => {
-  const [nameFoto, setNameFoto] = useState("");
+  const [nameFoto, setNameFoto] = useState(null);
   //const [place, setPlace] = useState("");
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isPlaceFocus, setIsPlaceFocus] = useState(false);
@@ -112,7 +112,7 @@ const CreatePostsScreen = () => {
   };  
 
   const onPressPublicate = () => {    
-    if (!nameFoto && !place) {
+    if (!nameFoto || !locationAddress) {
       Alert.alert("fill up inputs!");
       return;
     }        
@@ -121,7 +121,7 @@ const CreatePostsScreen = () => {
     navigation.navigate("PostsScreen");
     console.log('NLat', newLatitude, 'NLong', newLongitude);
     console.log('fotoCoords', fotoCoords);    
-    setNameFoto("");
+    setNameFoto(null);
     setLocationAddres(null);
   };
 
@@ -149,7 +149,7 @@ const CreatePostsScreen = () => {
 
   const reset = () => {
     setFoto(null);
-    setNameFoto("");
+    setNameFoto(null);
     setLocationAddres(null);
   };
 
