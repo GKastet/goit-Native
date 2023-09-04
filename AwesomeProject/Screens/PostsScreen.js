@@ -1,6 +1,6 @@
 import {
   FlatList,
-  Image, 
+  Image,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -11,10 +11,8 @@ import SinglePost from "../components/singlePost/singlePost";
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 
-
 const PostsScreen = () => {
   // const [fotoCoords, setFotoCoords] = useState(null)
-  
 
   // useEffect(()=>{
   //   if(!fotoCoords)return
@@ -22,7 +20,7 @@ const PostsScreen = () => {
   //   console.log('123', fotoCoords);
   //   setFotoCoords(fotoCoords)
   // }, [])
-//console.log('fotocoords', fotoCoords);
+  //console.log('fotocoords', fotoCoords);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.user}>
@@ -34,14 +32,18 @@ const PostsScreen = () => {
           <Text style={styles.userEmail}>test@test.com</Text>
         </View>
       </View>
+      <ScrollView style={{ flex: 1 }}>
+        <SinglePost />
+        <SinglePost />
+        <SinglePost />
+      </ScrollView>
       <View style={styles.allPosts}>
         {/* <FlatList>
           </FlatList> */}
-          <ScrollView style={{ flex: 1}}>
-        <SinglePost/>
-        <SinglePost/>
-            
-            </ScrollView>        
+        {/* <ScrollView style={{ flex: 1 }}>
+          <SinglePost />
+          <SinglePost />
+        </ScrollView> */}
         {/* <FlatList
           data={courses}
           renderItem={({ item }) => <Text>{item.title}</Text>}
@@ -99,5 +101,4 @@ const styles = StyleSheet.create({
     lineHeight: 12.9,
   },
   allPosts: {},
-  
 });

@@ -21,13 +21,12 @@ import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 
 import { useNavigation } from "@react-navigation/native";
-import MapView, { Marker } from "react-native-maps";
+// import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
-import { PROVIDER_GOOGLE } from "react-native-maps";
+// import { PROVIDER_GOOGLE } from "react-native-maps";
 
 const CreatePostsScreen = () => {
-  const [nameFoto, setNameFoto] = useState(null);
-  //const [place, setPlace] = useState("");
+  const [nameFoto, setNameFoto] = useState(null);  
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isPlaceFocus, setIsPlaceFocus] = useState(false);
 
