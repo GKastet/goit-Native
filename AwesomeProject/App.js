@@ -1,26 +1,19 @@
 import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Home, RegistrationScreen, LoginScreen, CommentsScreen, MapScreen } from "./Screens";
-import { Pressable } from "react-native";
-import { Feather } from "@expo/vector-icons";
 import GoBackBtn from "./components/Buttons/goBackBtn";
 
 const MainStack = createStackNavigator();
 
-export default function App() {
-  // const navigation = useNavigation();
+export default function App() {  
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Roboto-700": require("./assets/fonts/Roboto-Bold.ttf")
   });
-  // const navigation = useNavigation();
-
-  // const qwe = () =>{
-  //   navigation.navigate('CreatePostsScreen')
-  // }
+  
   if (!fontsLoaded) {
     return null;
   }
@@ -48,8 +41,7 @@ export default function App() {
           <MainStack.Screen
             name="CommentsScreen"
             component={CommentsScreen}
-            options={{ 
-              // headerShown: false,
+            options={{               
               headerTitle: "Коментарі",
               headerTitleAlign: "center",
               headerTitleStyle: {
@@ -69,8 +61,7 @@ export default function App() {
           <MainStack.Screen
             name="MapScreen"
             component={MapScreen}
-            options={{ 
-              // headerShown: false,
+            options={{               
               headerTitle: "Карта",
               headerTitleAlign: "center",
               headerTitleStyle: {

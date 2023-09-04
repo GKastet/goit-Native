@@ -49,6 +49,7 @@ export default SinglePost;
 
 const styles = StyleSheet.create({
   singleElement: {
+    width: 343,
     marginBottom: 34,
   },
   fotoThumb: {
@@ -71,7 +72,8 @@ const styles = StyleSheet.create({
     color: "#212121",
     lineHeight: 18.75,
   },
-  fotoNavigation: {
+  fotoNavigation: {    
+    paddingHorizontal: 5,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
