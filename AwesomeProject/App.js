@@ -68,7 +68,19 @@ export default function App() {
             name="MapScreen"
             component={MapScreen}
             options={{ 
-              headerShown: false,              
+              // headerShown: false,
+              headerTitleStyle: {
+                fontFamily: "Roboto-Medium",
+                color: "#212121",
+              },
+              headerStyle: {
+                borderBottomWidth: 1,
+                borderBottomColor: '#0000004D',
+                boxShadow: '0px 0.5px 0px 0px #0000004D',
+              },
+              headerLeft: () => (
+                <GoBackBtn/>
+              )
             }}
           />
           
