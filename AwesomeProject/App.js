@@ -50,6 +50,8 @@ export default function App() {
             component={CommentsScreen}
             options={{ 
               // headerShown: false,
+              headerTitle: "Коментарі",
+              headerTitleAlign: "center",
               headerTitleStyle: {
                 fontFamily: "Roboto-Medium",
                 color: "#212121",
@@ -69,6 +71,8 @@ export default function App() {
             component={MapScreen}
             options={{ 
               // headerShown: false,
+              headerTitle: "Карта",
+              headerTitleAlign: "center",
               headerTitleStyle: {
                 fontFamily: "Roboto-Medium",
                 color: "#212121",
