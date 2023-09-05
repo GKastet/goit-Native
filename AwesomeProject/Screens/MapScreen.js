@@ -2,17 +2,18 @@
 import { useRoute } from "@react-navigation/native";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { useSelector } from "react-redux";
-import { selectFotoCoords, selectFotoData } from "../redux/selectors";
-import { useEffect } from "react";
+
 
 const MapScreen = ({route}) => {
-  // const fotoCoords = useSelector(selectFotoData)
-  // const fotoCoords = useSelector(selectFotoCoords)
-console.log(route);
   
-  const { params: {longitude} } = useRoute();
-  console.log(longitude);
+  
+console.log('route', route.params.data);
+const fotoCoordsLatidude = route.params.data.latidude
+const fotoCoordsLongitude = route.params.data.longitude
+console.log('fotoCoords', fotoCoordsLatidude);
+  
+  const { params: {data} } = useRoute();
+  console.log(data);
   return (
     <View style={styles.container}>
       <Text>MapScreen</Text>
@@ -37,8 +38,10 @@ console.log(route);
       <MapView
         style={styles.mapStyle}
         region={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          // latitude: 37.78825,
+          latitude: fotoCoordsLatidude,
+          // longitude: -122.4324,
+          longitude: fotoCoordsLongitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
@@ -49,7 +52,8 @@ console.log(route);
       >
         <Marker
           title="I am here"
-          coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+          // coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+          coordinate={{ latitude: fotoCoordsLatidude, longitude: fotoCoordsLongitude }}
           description='Hello'
         />
       </MapView>

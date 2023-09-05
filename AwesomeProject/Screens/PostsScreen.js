@@ -11,18 +11,45 @@ import {
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectFotoCoords, selectFotoData, selectFotoId } from "../redux/selectors";
+import {  
+  selectFotoData,  
+} from "../redux/selectors";
 import { nanoid } from "@reduxjs/toolkit";
 import SinglePost from "../components/singlePost/singlePost";
 
-const PostsScreen = () => {
-  const fotoArr = useSelector(selectFotoData)
-  console.log('fotoArr', fotoArr);
+const PostsScreen = ({ route }) => {
+  //console.log(route);
+  const fotoArr = useSelector(selectFotoData);
+  console.log("fotoArr", fotoArr);
+  // const fotoArr = [
+  //   {
+  //     fotoCoords: { latidude: 48.592153, longitude: 17.8297492 },
+  //     fotoLocationAddress: "Piešťany, Словакия",
+  //     fotoName: "123",
+  //     fotoUri:
+  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAwesomeProject-8d38cc16-803f-4136-9141-a2fd32ada805/Camera/f7ab5df5-9610-46b4-be7f-8683c58dce5a.jpg",
+  //     id: "bPLlunjGD8nV5xVANryXs",
+  //   },
+  //   {
+  //     fotoCoords: { latidude: 48.592153, longitude: 17.8297492 },
+  //     fotoLocationAddress: "Piešťany, Словакия",
+  //     fotoName: "123",
+  //     fotoUri:
+  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAwesomeProject-8d38cc16-803f-4136-9141-a2fd32ada805/Camera/f7ab5df5-9610-46b4-be7f-8683c58dce5a.jpg",
+  //     id: "bPLlunjGD8nV5xVANryXs123456",
+  //   },
+  //   {
+  //     fotoCoords: { latidude: 48.592153, longitude: 17.8297492 },
+  //     fotoLocationAddress: "Piešťany, Словакия",
+  //     fotoName: "123",
+  //     fotoUri:
+  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAwesomeProject-8d38cc16-803f-4136-9141-a2fd32ada805/Camera/f7ab5df5-9610-46b4-be7f-8683c58dce5a.jpg",
+  //     id: "bPLlunjGD8nV5xVANryXs789789789",
+  //   },
+  // ];
+  //const fotoArr = []
+  // console.log("fotoArr", fotoArr);
 
-   const fotoId = fotoArr[0]?.id
-  // console.log('fotoId', fotoId);
-  // const fotoCoords = useSelector(selectFotoCoords)
-  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.user}>
@@ -34,44 +61,20 @@ const PostsScreen = () => {
           <Text style={styles.userEmail}>test@test.com</Text>
         </View>
       </View>
-      <ScrollView style={{ flex: 1 }}>
-        <>{fotoArr?.map(foto=>{
-            console.log('map id', foto);
-          <SinglePost
-            //key={nanoid()}
-            foto={foto}
+      <ScrollView>
+        {fotoArr.length ? (
+          fotoArr?.map((foto) => (
+            <SinglePost
+              key={nanoid()}
+              foto={foto}
             />
-          // <SinglePost
-          //   key={nanoid()}
-          //   fotoId={foto.id}
-          //   />
-        })}
-        </>
-
-        {/* <SinglePost  fotoId={fotoId}
-        /> */}
-        {/* {courses.map((course) => (
-          <Text key={course.id}>{course.title}</Text>
-        ))} */}
-
-
-
-        {/* <SinglePost />
-        <SinglePost /> */}
+          ))
+        ) : (
+          <SinglePost />
+        )}
+        
       </ScrollView>
-      <View style={styles.allPosts}>
-        {/* <FlatList>
-          </FlatList> */}
-        {/* <ScrollView style={{ flex: 1 }}>
-          <SinglePost />
-          <SinglePost />
-        </ScrollView> */}
-        {/* <FlatList
-          data={courses}
-          renderItem={({ item }) => <Text>{item.title}</Text>}
-          keyExtractor={(item) => item.id}
-        /> */}
-      </View>
+      <View style={styles.allPosts}></View>
     </SafeAreaView>
   );
 };
@@ -86,6 +89,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 10,
     backgroundColor: "#fff",
+    paddingBottom: 52,
   },
   user: {
     // width: "100%",

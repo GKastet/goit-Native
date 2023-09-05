@@ -33,16 +33,14 @@ const CreatePostsScreen = () => {
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isPlaceFocus, setIsPlaceFocus] = useState(false);
 
-  const [locationCoords, setLocationCoords] = useState(null);
+  //const [locationCoords, setLocationCoords] = useState(null);
   const [locationAddress, setLocationAddres] = useState(null);
 
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [foto, setFoto] = useState(null);
-
-  const [newLatitude, setNNewLatidude] = useState(null);
-  const [newLongitude, setNNewLongitude] = useState(null);
+  
   const [fotoCoords, setFotoCoords] = useState(null);
 
   const navigation = useNavigation();
@@ -90,17 +88,15 @@ const CreatePostsScreen = () => {
     // if(foto) return
     try {
       const location = await Location.getCurrentPositionAsync();
-      //console.log(location);
+      
       const address = await Location.reverseGeocodeAsync({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       });            
       const newLatitude = location.coords.latitude;
-      const newLongitude = location.coords.longitude;      
-      setNNewLatidude(newLatitude);
-      setNNewLongitude(newLongitude);
+      const newLongitude = location.coords.longitude;            
       setFotoCoords({latidude: newLatitude, longitude: newLongitude});
-      // console.log('Lat', newLatitude, 'Long', newLongitude);
+      
       
       const cityFoto = address[0].city || address[0].subregion      
       if(cameraRef){
@@ -119,10 +115,7 @@ const CreatePostsScreen = () => {
       Alert.alert("fill up inputs!");
       return;
     }        
-    // console.log('fotoUri', foto);
-    // console.log('Назва:', nameFoto, 'Місцевість', locationAddress);
-    // console.log('NLat', newLatitude, 'NLong', newLongitude);
-    // console.log('fotoCoords', fotoCoords);
+    
     navigation.navigate("PostsScreen");
     const fotoObj = {
       id: nanoid(),

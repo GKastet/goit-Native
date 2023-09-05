@@ -1,5 +1,6 @@
 export const initialStateUser = {
     userObj: null,
+    token: null,
     // userLogin: null,
     // userEmail: null,
     // userPassword: null,

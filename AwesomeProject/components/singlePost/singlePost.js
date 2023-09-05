@@ -4,19 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { selectFotoData, selectFotoId } from "../../redux/selectors";
 
-const SinglePost = ({foto}) => {
-    // const fotoArr = useSelector(selectFotoData)
-
-  console.log('income fotoId');
-
-  //  const findFotoData = fotoArr?.find(foto => foto.id === fotoId)
-  //  console.log('finded', findFotoData);
-  // const {fotoLocationAddress, fotoName, fotoUri} = findFotoData;
-
+const SinglePost = ({ foto }) => {
   
-
-  // const fotoId = useSelector(selectFotoId)
-  // console.log('id', fotoId);
   const navigation = useNavigation();
 
   const onCommentsIconPress = () => {
@@ -24,23 +13,23 @@ const SinglePost = ({foto}) => {
   };
 
   const onLocationIconPress = () => {
-    navigation.navigate("MapScreen", {data: 'test'});
-
+    // navigation.navigate("MapScreen", { data: "test" });
+    navigation.navigate("MapScreen", { data: foto.fotoCoords });
   };
 
   return (
-    <View
-    style={styles.singleElement}
-    //  id={fotoId}
-     >
+    <View style={styles.singleElement}>
       <View style={styles.fotoThumb}>
         <Image
-         style={styles.foto}
-         source={findFotoData? {uri: `${findFotoData.fotoUri}`} : require('../../img/PhotoBG.png')}
-         
-         />
+          style={styles.foto}
+          source={
+            foto ? { uri: `${foto.fotoUri}` } : require("../../img/PhotoBG.png")
+          }
+        />
       </View>
-      <Text style={styles.fotoText}>{findFotoData?.fotoName ? findFotoData.fotoName : 'fotoName'}</Text>
+      <Text style={styles.fotoText}>
+        {foto?.fotoName ? foto.fotoName : "fotoName"}
+      </Text>
       <View style={styles.fotoNavigation}>
         <View style={styles.fotoComments}>
           <Pressable onPress={onCommentsIconPress}>
@@ -60,7 +49,9 @@ const SinglePost = ({foto}) => {
               color="#BDBDBD"
             />
           </Pressable>
-          <Text style={styles.locationName}>{findFotoData?.fotoLocationAddress ? findFotoData.fotoLocationAddress : 'address'}</Text>
+          <Text style={styles.locationName}>
+            {foto?.fotoLocationAddress ? foto.fotoLocationAddress : "address"}
+          </Text>
         </View>
       </View>
     </View>
@@ -94,7 +85,7 @@ const styles = StyleSheet.create({
     color: "#212121",
     lineHeight: 18.75,
   },
-  fotoNavigation: {    
+  fotoNavigation: {
     paddingHorizontal: 5,
     flexDirection: "row",
     justifyContent: "space-between",

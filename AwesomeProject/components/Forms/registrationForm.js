@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { StartButton } from "../Buttons/startButton";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { userRegister } from "../../redux/Slices/userSlice";
 
 export const RegistrationForm = () => {
   const [login, setLogin] = useState("");
@@ -21,22 +23,36 @@ export const RegistrationForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const dispatch = useDispatch()
   const navigation = useNavigation();
+
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
   const onSubmitRegistration = () => {
-    console.log("login:", login);
-    console.log("email:", email);
-    console.log("password:", password);
+    // console.log("login:", login);
+    // console.log("email:", email);
+    // console.log("password:", password);
     //Alert.alert(`login: ${login}, email: ${email}, password: ${password}`);
+    const userObj = {
+      userLogin: login,
+      userEmail: email,
+      userPassword: password
+    }
+    dispatch(userRegister(userObj))
     setLogin("");
     setEmail("");
     setPassword("");
-    navigation.navigate("Home");
+     navigation.navigate("Home");
+    
+    //navigation.navigate("Home", {screen: 'PostsScreen', params: {data: 'from registration'}});
+  
+    ;
   };
+
+
 
   const isFocus = (name) => {
     if (name === "login") {

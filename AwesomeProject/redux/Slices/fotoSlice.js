@@ -6,11 +6,10 @@ const fotoSlice = createSlice({
     initialState: initialStateFoto,
     reducers: {
         fotoData: (state, {payload}) => {
-            console.log('payload', payload);
-            console.log('do', state.fotoObj);
-            // state.foto = payload
+            // console.log('payload', payload);
+            // console.log('do', state.fotoObj);            
             state.fotoObj.push(payload);
-            console.log('pislya', state.fotoObj);
+            // console.log('pislya', state.fotoObj);
         }
     }
 })
