@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { StartButton } from "../Buttons/startButton";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { userRegister } from "../../redux/Slices/userSlice";
 
 export const LogInForm = () => {
   const [email, setEmail] = useState("");
@@ -19,6 +21,7 @@ export const LogInForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const toggleShowPassword = () => {
@@ -26,9 +29,14 @@ export const LogInForm = () => {
   };
 
   const onPressLogIn = () => {
-    console.log("email:", email);
-    console.log("password:", password);
+    // console.log("email:", email);
+    // console.log("password:", password);
     //Alert.alert(`email: ${email} \n password: ${password}`);
+    const userObj = {      
+      userEmail: email,
+      userPassword: password
+    }
+    dispatch(userRegister(userObj))
     setEmail("");
     setPassword("");
     navigation.navigate("Home");

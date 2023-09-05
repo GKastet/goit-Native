@@ -12,13 +12,15 @@ import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {  
-  selectFotoData,  
+  selectFotoData, selectUserData,  
 } from "../redux/selectors";
 import { nanoid } from "@reduxjs/toolkit";
 import SinglePost from "../components/singlePost/singlePost";
 
 const PostsScreen = ({ route }) => {
   //console.log(route);
+  const user = useSelector(selectUserData)
+  console.log('user', user);
   const fotoArr = useSelector(selectFotoData);
   console.log("fotoArr", fotoArr);
   // const fotoArr = [
@@ -57,8 +59,8 @@ const PostsScreen = ({ route }) => {
           <Image style={styles.imgUser} />
         </View>
         <View>
-          <Text style={styles.userName}>Ivan Mazepa</Text>
-          <Text style={styles.userEmail}>test@test.com</Text>
+          <Text style={styles.userName}>{user?.Login ? user.userLogin : 'Ivan Mazepa'}</Text>
+          <Text style={styles.userEmail}>{user?.userEmail ? user.userEmail : 'test@test.com'}</Text>
         </View>
       </View>
       <ScrollView>

@@ -9,10 +9,12 @@ const SinglePost = ({ foto }) => {
   const navigation = useNavigation();
 
   const onCommentsIconPress = () => {
+    if(!foto)return;
     navigation.navigate("CommentsScreen");
   };
 
   const onLocationIconPress = () => {
+    if(!foto)return;
     // navigation.navigate("MapScreen", { data: "test" });
     navigation.navigate("MapScreen", { data: foto.fotoCoords });
   };
