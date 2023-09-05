@@ -4,13 +4,13 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { selectFotoData, selectFotoId } from "../../redux/selectors";
 
-const SinglePost = ({fotoId}) => {
-    const fotoArr = useSelector(selectFotoData)
+const SinglePost = ({foto}) => {
+    // const fotoArr = useSelector(selectFotoData)
 
   console.log('income fotoId');
 
-   const findFotoData = fotoArr?.find(foto => foto.id === fotoId)
-   console.log('finded', findFotoData);
+  //  const findFotoData = fotoArr?.find(foto => foto.id === fotoId)
+  //  console.log('finded', findFotoData);
   // const {fotoLocationAddress, fotoName, fotoUri} = findFotoData;
 
   

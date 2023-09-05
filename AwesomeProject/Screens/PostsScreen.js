@@ -35,7 +35,7 @@ const PostsScreen = () => {
         </View>
       </View>
       <ScrollView style={{ flex: 1 }}>
-        {fotoArr?.map(foto=>{
+        <>{fotoArr?.map(foto=>{
             console.log('map id', foto);
           <SinglePost
             //key={nanoid()}
@@ -46,9 +46,10 @@ const PostsScreen = () => {
           //   fotoId={foto.id}
           //   />
         })}
+        </>
 
-        <SinglePost  fotoId={fotoId}
-        />
+        {/* <SinglePost  fotoId={fotoId}
+        /> */}
         {/* {courses.map((course) => (
           <Text key={course.id}>{course.title}</Text>
         ))} */}
