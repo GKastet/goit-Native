@@ -2,10 +2,17 @@
 import { useRoute } from "@react-navigation/native";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import { useSelector } from "react-redux";
+import { selectFotoCoords, selectFotoData } from "../redux/selectors";
+import { useEffect } from "react";
 
-const MapScreen = () => {
-  // const { params: {longitude} } = useRoute();
-  // console.log(longitude);
+const MapScreen = ({route}) => {
+  // const fotoCoords = useSelector(selectFotoData)
+  // const fotoCoords = useSelector(selectFotoCoords)
+console.log(route);
+  
+  const { params: {longitude} } = useRoute();
+  console.log(longitude);
   return (
     <View style={styles.container}>
       <Text>MapScreen</Text>

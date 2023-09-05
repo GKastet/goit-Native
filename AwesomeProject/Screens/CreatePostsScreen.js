@@ -23,6 +23,9 @@ import * as MediaLibrary from "expo-media-library";
 import { useNavigation } from "@react-navigation/native";
 // import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
+import { useDispatch } from "react-redux";
+import { fotoData } from "../redux/Slices/fotoSlice";
+import { nanoid } from "@reduxjs/toolkit";
 // import { PROVIDER_GOOGLE } from "react-native-maps";
 
 const CreatePostsScreen = () => {
@@ -43,6 +46,7 @@ const CreatePostsScreen = () => {
   const [fotoCoords, setFotoCoords] = useState(null);
 
   const navigation = useNavigation();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     (async () => {
@@ -115,11 +119,19 @@ const CreatePostsScreen = () => {
       Alert.alert("fill up inputs!");
       return;
     }        
-    console.log('fotoUri', foto);
-    console.log('Назва:', nameFoto, 'Місцевість', locationAddress);
+    // console.log('fotoUri', foto);
+    // console.log('Назва:', nameFoto, 'Місцевість', locationAddress);
+    // console.log('NLat', newLatitude, 'NLong', newLongitude);
+    // console.log('fotoCoords', fotoCoords);
     navigation.navigate("PostsScreen");
-    console.log('NLat', newLatitude, 'NLong', newLongitude);
-    console.log('fotoCoords', fotoCoords);    
+    const fotoObj = {
+      id: nanoid(),
+      fotoUri: foto,
+      fotoName: nameFoto,
+      fotoLocationAddress: locationAddress,
+      fotoCoords: fotoCoords
+    }
+    dispatch(fotoData(fotoObj))
     setNameFoto(null);
     setLocationAddres(null);
   };

@@ -1,8 +1,22 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { selectFotoData, selectFotoId } from "../../redux/selectors";
 
-const SinglePost = () => {
+const SinglePost = ({fotoId}) => {
+    const fotoArr = useSelector(selectFotoData)
+
+  console.log('income fotoId');
+
+   const findFotoData = fotoArr?.find(foto => foto.id === fotoId)
+   console.log('finded', findFotoData);
+  // const {fotoLocationAddress, fotoName, fotoUri} = findFotoData;
+
+  
+
+  // const fotoId = useSelector(selectFotoId)
+  // console.log('id', fotoId);
   const navigation = useNavigation();
 
   const onCommentsIconPress = () => {
@@ -10,15 +24,23 @@ const SinglePost = () => {
   };
 
   const onLocationIconPress = () => {
-    navigation.navigate("MapScreen");
+    navigation.navigate("MapScreen", {data: 'test'});
+
   };
 
   return (
-    <View style={styles.singleElement}>
+    <View
+    style={styles.singleElement}
+    //  id={fotoId}
+     >
       <View style={styles.fotoThumb}>
-        <Image style={styles.foto} />
+        <Image
+         style={styles.foto}
+         source={findFotoData? {uri: `${findFotoData.fotoUri}`} : require('../../img/PhotoBG.png')}
+         
+         />
       </View>
-      <Text style={styles.fotoText}>Ліс</Text>
+      <Text style={styles.fotoText}>{findFotoData?.fotoName ? findFotoData.fotoName : 'fotoName'}</Text>
       <View style={styles.fotoNavigation}>
         <View style={styles.fotoComments}>
           <Pressable onPress={onCommentsIconPress}>
@@ -38,7 +60,7 @@ const SinglePost = () => {
               color="#BDBDBD"
             />
           </Pressable>
-          <Text style={styles.locationName}>Ivano-Frankivsk</Text>
+          <Text style={styles.locationName}>{findFotoData?.fotoLocationAddress ? findFotoData.fotoLocationAddress : 'address'}</Text>
         </View>
       </View>
     </View>

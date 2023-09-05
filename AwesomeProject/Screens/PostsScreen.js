@@ -7,20 +7,22 @@ import {
   Text,
   View,
 } from "react-native";
-import SinglePost from "../components/singlePost/singlePost";
+//import SinglePost from "../components/singlePost/SinglePost";
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectFotoCoords, selectFotoData, selectFotoId } from "../redux/selectors";
+import { nanoid } from "@reduxjs/toolkit";
+import SinglePost from "../components/singlePost/singlePost";
 
 const PostsScreen = () => {
-  // const [fotoCoords, setFotoCoords] = useState(null)
+  const fotoArr = useSelector(selectFotoData)
+  console.log('fotoArr', fotoArr);
 
-  // useEffect(()=>{
-  //   if(!fotoCoords)return
-  //   const { params: {fotoCoords} } = useRoute();
-  //   console.log('123', fotoCoords);
-  //   setFotoCoords(fotoCoords)
-  // }, [])
-  //console.log('fotocoords', fotoCoords);
+   const fotoId = fotoArr[0]?.id
+  // console.log('fotoId', fotoId);
+  // const fotoCoords = useSelector(selectFotoCoords)
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.user}>
@@ -33,9 +35,28 @@ const PostsScreen = () => {
         </View>
       </View>
       <ScrollView style={{ flex: 1 }}>
-        <SinglePost />
-        <SinglePost />
-        <SinglePost />
+        {fotoArr?.map(foto=>{
+            console.log('map id', foto);
+          <SinglePost
+            //key={nanoid()}
+            foto={foto}
+            />
+          // <SinglePost
+          //   key={nanoid()}
+          //   fotoId={foto.id}
+          //   />
+        })}
+
+        <SinglePost  fotoId={fotoId}
+        />
+        {/* {courses.map((course) => (
+          <Text key={course.id}>{course.title}</Text>
+        ))} */}
+
+
+
+        {/* <SinglePost />
+        <SinglePost /> */}
       </ScrollView>
       <View style={styles.allPosts}>
         {/* <FlatList>
