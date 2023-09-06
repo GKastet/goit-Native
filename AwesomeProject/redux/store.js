@@ -9,12 +9,13 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
 import { userReducer } from "./Slices/userSlice";
 import { fotoReducer } from "./Slices/fotoSlice";
 
-
-//import fotoReducer from './'
 
 const userPersistConfig = {
   key: "user",

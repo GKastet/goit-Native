@@ -6,9 +6,9 @@ const userSlice = createSlice({
     initialState: initialStateUser,
     reducers: {
         userRegister: (state, {payload}) => {
-            console.log('payload', payload);
+            //console.log('payload', payload);
             state.userObj = payload
-            console.log('pislya', state.userObj);
+            //console.log('pislya', state.userObj);
         }
     }
 })

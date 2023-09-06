@@ -12,6 +12,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { userRegister } from "../../redux/Slices/userSlice";
 
+import { registerDB } from '../../config';
+
 export const RegistrationForm = () => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
@@ -32,14 +34,20 @@ export const RegistrationForm = () => {
   };
 
   const onSubmitRegistration = () => {
+    // if(!login || !email || !password){
+    //   Alert.alert('Please, fill up all inputs 😉')
+    //   return
+    // }
     // console.log("login:", login);
     // console.log("email:", email);
     // console.log("password:", password);
     //Alert.alert(`login: ${login}, email: ${email}, password: ${password}`);
+    registerDB( email, password, login )
+    
+      
     const userObj = {
       userLogin: login,
-      userEmail: email,
-      userPassword: password
+      userEmail: email,      
     }
     dispatch(userRegister(userObj))
     setLogin("");

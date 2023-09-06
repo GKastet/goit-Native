@@ -11,6 +11,8 @@ import { StartButton } from "../Buttons/startButton";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { userRegister } from "../../redux/Slices/userSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, loginDB } from '../../config';
 
 export const LogInForm = () => {
   const [email, setEmail] = useState("");
@@ -28,13 +30,21 @@ export const LogInForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const onPressLogIn = () => {
+  const onPressLogIn = async () => {
+    // if(!email || !password){
+    //   Alert.alert('Please, fill up all inputs 😉')
+    //   return
+    // }
     // console.log("email:", email);
     // console.log("password:", password);
     //Alert.alert(`email: ${email} \n password: ${password}`);
-    const userObj = {      
-      userEmail: email,
-      userPassword: password
+
+    const userData = await loginDB(email, password)
+    //console.log('qwe', userData);
+
+    const userObj = {
+      userLogin: userData.displayName,      
+      userEmail: userData.email,      
     }
     dispatch(userRegister(userObj))
     setEmail("");

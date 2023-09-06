@@ -16,13 +16,26 @@ import {
 } from "../redux/selectors";
 import { nanoid } from "@reduxjs/toolkit";
 import SinglePost from "../components/singlePost/singlePost";
+import { getDataFromFirestore } from "../components/Helpers/helpers";
 
 const PostsScreen = ({ route }) => {
   //console.log(route);
   const user = useSelector(selectUserData)
-  console.log('user', user);
+  // console.log('user', user);
   const fotoArr = useSelector(selectFotoData);
   console.log("fotoArr", fotoArr);
+
+  let receivedDataFromFirestore = null;
+
+  async function dataFromFirestore(){
+    const getData = await getDataFromFirestore()
+    console.log("Fetched Data:", getData);
+    receivedDataFromFirestore = getData
+    console.log('getData2', receivedDataFromFirestore.map((item) => item.data))
+    // return qwe
+  }
+  dataFromFirestore();
+   
   // const fotoArr = [
   //   {
   //     fotoCoords: { latidude: 48.592153, longitude: 17.8297492 },
@@ -59,7 +72,7 @@ const PostsScreen = ({ route }) => {
           <Image style={styles.imgUser} />
         </View>
         <View>
-          <Text style={styles.userName}>{user?.Login ? user.userLogin : 'Ivan Mazepa'}</Text>
+          <Text style={styles.userName}>{user?.userLogin ? user.userLogin : 'Ivan Mazepa'}</Text>
           <Text style={styles.userEmail}>{user?.userEmail ? user.userEmail : 'test@test.com'}</Text>
         </View>
       </View>

@@ -26,6 +26,7 @@ import * as Location from "expo-location";
 import { useDispatch } from "react-redux";
 import { fotoData } from "../redux/Slices/fotoSlice";
 import { nanoid } from "@reduxjs/toolkit";
+import { writeDataToFirestore } from "../components/Helpers/helpers";
 // import { PROVIDER_GOOGLE } from "react-native-maps";
 
 const CreatePostsScreen = () => {
@@ -115,7 +116,7 @@ const CreatePostsScreen = () => {
       Alert.alert("fill up inputs!");
       return;
     }        
-    
+    writeDataToFirestore()
     navigation.navigate("PostsScreen");
     const fotoObj = {
       id: nanoid(),
