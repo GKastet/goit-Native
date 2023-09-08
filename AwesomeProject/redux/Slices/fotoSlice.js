@@ -24,13 +24,14 @@ const fotoSlice = createSlice({
             const updated = state.fotoObj.splice(fotoIndex, 1, changeLikes);            
             //console.log('new', state.fotoObj);            
         },
+        commentsAllApiAction: (state, {payload})=>{
+            //console.log('payloadComments', payload);
+            state.commentsArray = payload            
+        },
         fotoAddComments: (state, {payload})=>{
              console.log('payload', payload);
+             state.commentsArray.push(payload)
         },
-        commentsAllApiAction: (state, {payload})=>{
-            console.log('payloadComments', payload);
-            state.commentsArray = payload
-        }
     }
 })
 

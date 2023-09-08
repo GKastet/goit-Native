@@ -39,13 +39,15 @@ export const writeDataToFirestore = async (fotoObj, collectionName) => {
   }
 };
 
-export const writeDataToFirestoreComments = async (commentsToStore, collectionName) => {
-  //console.log('commentsToStore', commentsToStore);
-  const { fotoId, comment } = commentsToStore;
+export const writeDataToFirestoreComments = async (commentsToFirebase, collectionName) => {
+  //console.log('commentsToFirebase', commentsToFirebase);
+  const { fotoId, comment, commentDatum, userUid } = commentsToFirebase;
   try {
     const docRef = await addDoc(collection(db, `${collectionName}`), {
       comment,
       fotoId,
+      commentDatum,
+      userUid,
     });
     console.log("Document written with ID: ", docRef.id);
     // await updateDataInFirestoreId('foto', docRef.id);

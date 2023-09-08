@@ -1,10 +1,18 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { selectCommentsData } from "../../redux/selectors";
 
 const SinglePost = ({ foto }) => {
+  const commentsArr = useSelector(selectCommentsData)
   
   const navigation = useNavigation();
+
+  //console.log('fotoSinglePost', foto);
+
+  const filteredComments = commentsArr?.filter(comment => comment.data.fotoId === foto.updateId).length;
+  //console.log('filteredComments', filteredComments);
 
   const onCommentsIconPress = () => {
     if(!foto)return;
@@ -36,10 +44,10 @@ const SinglePost = ({ foto }) => {
             <Feather
               name="message-circle"
               size={24}
-              color="#BDBDBD"
+              color={filteredComments? "#FF6C00" : "#BDBDBD"}
             />
           </Pressable>
-          <Text style={styles.commentsCounter}>0</Text>
+          <Text style={styles.commentsCounter}>{filteredComments}</Text>
         </View>
         <View style={styles.fotoLocation}>
           <Pressable onPress={onLocationIconPress}>

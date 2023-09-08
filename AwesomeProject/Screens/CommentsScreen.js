@@ -18,37 +18,71 @@ import {
   updateDataInFirestoreId,
   writeDataToFirestoreComments,
 } from "../components/Helpers/helpers";
-import { selectCommentsData } from "../redux/selectors";
+import { selectCommentsData, selectUserData } from "../redux/selectors";
 import { nanoid } from "@reduxjs/toolkit";
 
 const CommentsScreen = ({ route }) => {
   //  console.log('route', route);
-  const commentsArr = useSelector(selectCommentsData)
+  const user = useSelector(selectUserData);
+  // console.log("userComments", user);
+  const commentsArr = useSelector(selectCommentsData);
   const [comment, setComment] = useState("");
   const fotoAllData = route.params.data;
   const foto = fotoAllData.fotoUri;
   const fotoId = fotoAllData.updateId;
-  console.log('fotoAllData', fotoAllData);
-  console.log('commentsArr', commentsArr);
+  // console.log("fotoAllData", fotoAllData);
+  //console.log('commentsArr', commentsArr);
   const dispatch = useDispatch();
-//sYeIeJrB3QtMK8YITJkC
-  const filteredComments = commentsArr?.filter(comment => comment.data.fotoId === fotoId);
-  console.log('filteredComments', filteredComments);
+  // console.log('fotoAllData.userUid', fotoAllData.userUid);
+
+  const filteredComments = commentsArr?.filter(
+    (comment) => comment.data.fotoId === fotoId
+  );
+  // console.log("filteredComments", filteredComments.length);
 
   const onSendCommentPress = async () => {
-    const commentsToStore = {
+    //   const currentDate = new Date();
+//   const day = currentDate.getDate();
+//   const month = currentDate.getMonth()+1;
+//   const year = currentDate.getFullYear();
+//   const hours = currentDate.getHours();
+// const minutes = currentDate.getMinutes();
+    const date = new Date();
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    };
+    const commentDatum = date.toLocaleDateString("ukr-UKR", options);
+
+    const commentsToFirebase = {
       fotoId,
       comment,
+      commentDatum,
+      userUid: user.userUid,
     };
-    console.log("commentsToStore", commentsToStore);
+    //console.log("commentsToFirebase", commentsToFirebase);
     const collectionName = "comments";
     const documentId = await writeDataToFirestoreComments(
-      commentsToStore,
+      commentsToFirebase,
       collectionName
     );
-    console.log("commentsDocumentId", documentId);
+    const commentToStore = {
+      data: {
+        fotoId,
+        comment,
+        commentDatum,
+        commentId: documentId,
+        userUid: user.userUid,
+      },
+    };
+    // console.log("commentsDocumentId", documentId);
     await updateDataInFirestoreId("comments", documentId, fotoId);
-    // dispatch(fotoAddComments(commentsToStore));
+    // await updateDataInFirestoreId("comments", documentId, fotoId);
+    dispatch(fotoAddComments(commentToStore));
+    setComment("");
   };
 
   return (
@@ -62,9 +96,27 @@ const CommentsScreen = ({ route }) => {
           }
         />
       </View>
-      <ScrollView>
-        {filteredComments?.map(comment=> <SingleComment key={nanoid()} commentsText={comment.data.comment}/>)}
-        
+      <ScrollView style={styles.commentsBox}>
+        {/* {filteredComments?.map(comment=> <SingleComment key={nanoid()} commentsText={comment.data.comment} />)} */}
+        {filteredComments?.map((comment, index, array) => {
+          //console.log('uid', comment.data.userUid);
+
+          const previousUserComment = index > 0 ? array[index - 1] : null;          
+          const isIdEqual = !previousUserComment
+            ? false
+            : comment.data.userUid === previousUserComment.data.userUid
+            ? false
+            : true;
+          
+          return (
+            <SingleComment
+              key={nanoid()}
+              commentsText={comment.data.comment}
+              commentDatum={comment.data.commentDatum}
+              isIdEqual={isIdEqual}
+            />
+          );
+        })}
       </ScrollView>
       <View style={styles.inputBox}>
         <TextInput
@@ -122,9 +174,14 @@ const styles = StyleSheet.create({
     position: "relative",
     width: "100%",
   },
+  // commentsBox: {
+  //   display: 'flex',
+  //   gap: 24,
+  // },
+
   commentInput: {
     width: "100%",
-    height: 50,
+    minHeight: 69,
     backgroundColor: "#00000008",
     borderRadius: 10,
     padding: 15,
@@ -142,3 +199,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+

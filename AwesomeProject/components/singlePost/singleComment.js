@@ -1,19 +1,24 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { Image, StyleSheet, Text, View } from "react-native";
 
-export const SingleComment = ({ commentsText }) => {
-  console.log("commentsText", commentsText);
+export const SingleComment = ({ commentsText, isIdEqual, commentDatum }) => {
+  // console.log("isIdEqual", isIdEqual);
+
   return (
-    <View style={styles.commentAllBox}>
+    <View style={!isIdEqual ? styles.commentAllBox : styles.commentAllBoxReverse } >
+       {/* <View style={styles.commentAllBox} > */}
       <View style={styles.imgThumb}>
         <Image style={styles.img} />
       </View>
-      
-        <View key={nanoid()} style={styles.commentBox}>
-          <Text style={styles.comment}>{commentsText}</Text>
-          <Text>Data</Text>
-        </View>
-      
+
+      <View
+        key={nanoid()}
+        style={styles.commentBox}
+      >
+        <Text style={styles.comment}>{commentsText}</Text>
+        <Text style={styles.datum}>{commentDatum}</Text>
+      </View>
+
       {/* <View style = {styles.commentBox}>        
         <Text style={styles.comment}></Text>
         <Text>Data</Text>
@@ -27,7 +32,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     gap: 16,
-    outline: "1px solid red",
+    marginBottom: 24,
+  },
+  commentAllBoxReverse: {
+    display: "flex",
+    flexDirection: "row-reverse",
+    gap: 16,
+    marginBottom: 24,
   },
 
   imgThumb: {
@@ -46,7 +57,21 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: "#00000008",
     padding: 16,
+    borderTopRightRadius: 16,
+    borderBottomLeftRadius: 16,
   },
 
-  comment: {},
+  comment: {
+    fontFamily: "Roboto-Regular",
+    fontSize: 13,
+    color: "#212121",
+    lineHeight: 18,
+  },
+  datum: {
+    marginTop: 'auto',
+    fontFamily: "Roboto-Regular",
+    fontSize: 10,
+    color: "#BDBDBD",
+    lineHeight: 11.72,
+  },
 });

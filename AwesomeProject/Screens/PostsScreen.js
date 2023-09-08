@@ -23,7 +23,7 @@ const PostsScreen = ({ route }) => {
   const user = useSelector(selectUserData)  
   const fotoArrState = useSelector(selectFotoData);
   const [fotoArr, setFotoArr] = useState(fotoArrState)
-  //console.log("fotoArr.data", fotoArr);
+  //console.log("fotoArrPostsScreen", fotoArr);
   
 
   useEffect(()=>{
