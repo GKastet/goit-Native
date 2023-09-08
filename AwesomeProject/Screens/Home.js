@@ -5,6 +5,7 @@ import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import { useNavigation } from "@react-navigation/native";
+import { LogOutBtn } from "../components/Buttons/logOutBtn";
 
 //import { PostsScreen, CreatePostsScreen, ProfileScreen } from "../Screens";
 
@@ -45,16 +46,7 @@ const Home = () => {
             boxShadow: '0px 0.5px 0px 0px #0000004D',
           },
           headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Login")}
-              style={{ marginRight: 10 }}
-            >
-              <Feather
-                name="log-out"
-                size={24}
-                color="#BDBDBD"
-              />
-            </Pressable>
+            <LogOutBtn style={{marginRight: 10}}/>            
           ),
           tabBarIcon: ({ focused }) => {
             return (

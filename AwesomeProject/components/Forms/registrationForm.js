@@ -33,16 +33,19 @@ export const RegistrationForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmitRegistration = () => {
+  const onSubmitRegistration = async () => {
     // if(!login || !email || !password){
     //   Alert.alert('Please, fill up all inputs 😉')
+    //   return
+    // }else if(password?.length < 6){
+    //   Alert.alert('Password must be min 6 characters 😉')
     //   return
     // }
     // console.log("login:", login);
     // console.log("email:", email);
     // console.log("password:", password);
     //Alert.alert(`login: ${login}, email: ${email}, password: ${password}`);
-    registerDB( email, password, login )
+     await registerDB( email, password, login )
     
       
     const userObj = {

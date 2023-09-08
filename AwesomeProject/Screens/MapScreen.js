@@ -7,10 +7,10 @@ import MapView, { Marker } from "react-native-maps";
 const MapScreen = ({route}) => {
   
   
-console.log('route', route.params.data);
+//console.log('route', route.params.data);
 const fotoCoordsLatidude = route.params.data.latidude
 const fotoCoordsLongitude = route.params.data.longitude
-console.log('fotoCoords', fotoCoordsLatidude);
+
   
   const { params: {data} } = useRoute();
   console.log(data);

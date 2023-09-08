@@ -1,18 +1,43 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { fotoLikesCounter } from "../../redux/Slices/fotoSlice";
+import { updateDataInFirestore, updateDataInFirestoreLikes } from "../Helpers/helpers";
 
-const SinglePost = ({ foto }) => {
-  
-  const navigation = useNavigation();
+const SinglePostProfile = ({ foto }) => {
+  const navigation = useNavigation();  
+  const dispatch = useDispatch()
+
+  const fotoId = foto.id
+  const fotoNoFotoidData = foto.data
+  let totalLikes = fotoNoFotoidData.fotoLikes
 
   const onCommentsIconPress = () => {
-    if(!foto)return;
-    navigation.navigate("CommentsScreen", { data: foto });
+    if (!foto) return;
+    navigation.navigate("CommentsScreen");
   };
 
-  const onLocationIconPress = () => {
-    if(!foto)return;
+  const onBtnLikesPress = () => {
+     totalLikes = totalLikes + 1;    
+    const likesCounter = {
+      totalLikes,
+      fotoId,
+    }
+    const updateLikes={
+      collectionName: 'foto',
+      docId: foto.id,
+      totalLikes,
+    }    
+    // console.log('updateLikes', updateLikes);
+    // console.log('likesCounter', likesCounter);
+    dispatch(fotoLikesCounter(likesCounter));
+    updateDataInFirestoreLikes(updateLikes);
+  };  
+
+  const onLocationIconPress = () => {    
+    if (!foto) return;
     // navigation.navigate("MapScreen", { data: "test" });
     navigation.navigate("MapScreen", { data: foto.fotoCoords });
   };
@@ -23,12 +48,12 @@ const SinglePost = ({ foto }) => {
         <Image
           style={styles.foto}
           source={
-            foto ? { uri: `${foto.fotoUri}` } : require("../../img/PhotoBG.png")
+            foto ? { uri: `${fotoNoFotoidData.fotoUri}` } : require("../../img/PhotoBG.png")
           }
         />
       </View>
       <Text style={styles.fotoText}>
-        {foto?.fotoName ? foto.fotoName : "fotoName"}
+        {fotoNoFotoidData?.fotoName ? fotoNoFotoidData.fotoName : "fotoName"}
       </Text>
       <View style={styles.fotoNavigation}>
         <View style={styles.fotoComments}>
@@ -40,6 +65,17 @@ const SinglePost = ({ foto }) => {
             />
           </Pressable>
           <Text style={styles.commentsCounter}>0</Text>
+          <Pressable
+            onPress={onBtnLikesPress}
+            style={{marginLeft: 24}}            
+          >
+            <Feather
+              name="thumbs-up"
+              size={24}
+              color={fotoNoFotoidData?.fotoLikes? "#FF6C00": "#BDBDBD"}
+            />
+          </Pressable>
+          <Text style={styles.commentsCounter}>{fotoNoFotoidData.fotoLikes}</Text>
         </View>
         <View style={styles.fotoLocation}>
           <Pressable onPress={onLocationIconPress}>
@@ -50,7 +86,7 @@ const SinglePost = ({ foto }) => {
             />
           </Pressable>
           <Text style={styles.locationName}>
-            {foto?.fotoLocationAddress ? foto.fotoLocationAddress : "address"}
+            {fotoNoFotoidData?.fotoCountry ? fotoNoFotoidData.fotoCountry : "address"}
           </Text>
         </View>
       </View>
@@ -58,7 +94,7 @@ const SinglePost = ({ foto }) => {
   );
 };
 
-export default SinglePost;
+export default SinglePostProfile;
 
 const styles = StyleSheet.create({
   singleElement: {

@@ -98,6 +98,8 @@ const styles = StyleSheet.create({
     marginTop: 0,
     position: "absolute",
     top: -60,
+    borderRadius: 16,
+    overflow: "hidden",
   },
   img: {
     width: 120,

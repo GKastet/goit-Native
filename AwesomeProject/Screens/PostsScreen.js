@@ -10,7 +10,7 @@ import {
 //import SinglePost from "../components/singlePost/SinglePost";
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {  
   selectFotoData, selectUserData,  
 } from "../redux/selectors";
@@ -20,22 +20,29 @@ import { getDataFromFirestore } from "../components/Helpers/helpers";
 
 const PostsScreen = ({ route }) => {
   //console.log(route);
-  const user = useSelector(selectUserData)
-  // console.log('user', user);
-  const fotoArr = useSelector(selectFotoData);
-  console.log("fotoArr", fotoArr);
+  const user = useSelector(selectUserData)  
+  const fotoArrState = useSelector(selectFotoData);
+  const [fotoArr, setFotoArr] = useState(fotoArrState)
+  //console.log("fotoArr.data", fotoArr);
+  
 
-  let receivedDataFromFirestore = null;
+  useEffect(()=>{
+    setFotoArr(fotoArrState)
+  }, [fotoArrState])
 
-  async function dataFromFirestore(){
-    const getData = await getDataFromFirestore()
-    console.log("Fetched Data:", getData);
-    receivedDataFromFirestore = getData
-    console.log('getData2', receivedDataFromFirestore.map((item) => item.data))
-    // return qwe
-  }
-  dataFromFirestore();
-   
+  //const dispatch = useDispatch()
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // let receivedDataFromFirestore = null;
+
+  // async function dataFromFirestore(){
+  //   const getData = await getDataFromFirestore()
+  //   console.log("Fetched Data:", getData);
+  //   receivedDataFromFirestore = getData
+  //   console.log('getData2', receivedDataFromFirestore.map((item) => item.data))
+  //   // return qwe
+  // }
+  // dataFromFirestore();
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
   // const fotoArr = [
   //   {
   //     fotoCoords: { latidude: 48.592153, longitude: 17.8297492 },
@@ -81,7 +88,7 @@ const PostsScreen = ({ route }) => {
           fotoArr?.map((foto) => (
             <SinglePost
               key={nanoid()}
-              foto={foto}
+              foto={foto.data}
             />
           ))
         ) : (

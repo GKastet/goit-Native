@@ -20,8 +20,8 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 //import { getAnalytics } from "firebase/analytics";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch } from "react-redux";
-import { userRegister } from "./redux/Slices/userSlice";
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyARFzU1aK-qr6egqJwjB6QXEGy_t6QSkpg",
@@ -76,7 +76,7 @@ export const registerDB = async (email, password, login) => {
     console.log("credentialsRegister", credentials.user);
     await updateProfile(auth.currentUser, {
               displayName: login,
-            //   photoURL: avatar,
+               //photoURL: avatar,
             });           
 
     // try {
@@ -102,7 +102,7 @@ export const registerDB = async (email, password, login) => {
 export const loginDB = async (email, password) => {    
   try {
     const credentials = await signInWithEmailAndPassword(auth, email, password);
-    // console.log("credentialsLogin", credentials.user);
+     //console.log("credentialsLogin", credentials.user);
     return credentials.user;
   } catch (error) {
     if (error.code === "auth/wrong-password") {

@@ -13,6 +13,8 @@ import { useDispatch } from "react-redux";
 import { userRegister } from "../../redux/Slices/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, loginDB } from '../../config';
+import { getDataFromFirestore } from "../Helpers/helpers";
+import { commentsAllApiAction, fotoDataApiAction } from "../../redux/Slices/fotoSlice";
 
 export const LogInForm = () => {
   const [email, setEmail] = useState("");
@@ -34,19 +36,26 @@ export const LogInForm = () => {
     // if(!email || !password){
     //   Alert.alert('Please, fill up all inputs 😉')
     //   return
+    // }else if(password?.length < 6){
+    //   Alert.alert('Password must be min 6 characters 😉')
+    //   return
     // }
-    // console.log("email:", email);
-    // console.log("password:", password);
-    //Alert.alert(`email: ${email} \n password: ${password}`);
-
     const userData = await loginDB(email, password)
-    //console.log('qwe', userData);
+    const fotoDataApi = await getDataFromFirestore (`foto`)
+    const commentsAllApi = await getDataFromFirestore (`comments`)
+    // console.log('fotoDataApi', fotoDataApi);
+    console.log('commentsAllApi', commentsAllApi);
 
     const userObj = {
       userLogin: userData.displayName,      
-      userEmail: userData.email,      
+      userEmail: userData.email,
+      userUid: userData.uid      
     }
     dispatch(userRegister(userObj))
+    dispatch(fotoDataApiAction(fotoDataApi))
+    dispatch(commentsAllApiAction(commentsAllApi)) //
+
+
     setEmail("");
     setPassword("");
     navigation.navigate("Home");

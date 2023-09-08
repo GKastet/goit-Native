@@ -23,19 +23,23 @@ import * as MediaLibrary from "expo-media-library";
 import { useNavigation } from "@react-navigation/native";
 // import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fotoData } from "../redux/Slices/fotoSlice";
 import { nanoid } from "@reduxjs/toolkit";
-import { writeDataToFirestore } from "../components/Helpers/helpers";
+import { updateDataInFirestoreId, writeDataToFirestore } from "../components/Helpers/helpers";
+import { selectUserData } from "../redux/selectors";
 // import { PROVIDER_GOOGLE } from "react-native-maps";
 
 const CreatePostsScreen = () => {
+  const user = useSelector(selectUserData)
+  
   const [nameFoto, setNameFoto] = useState(null);  
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isPlaceFocus, setIsPlaceFocus] = useState(false);
 
   //const [locationCoords, setLocationCoords] = useState(null);
   const [locationAddress, setLocationAddres] = useState(null);
+  const [fotoCountry, setFotoCountry] = useState(null);
 
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
@@ -105,27 +109,48 @@ const CreatePostsScreen = () => {
         await MediaLibrary.createAssetAsync(uri);
         setFoto(uri);        
         setLocationAddres(`${cityFoto}, ${address[0].country}`);
+        setFotoCountry(address[0].country)
       }      
     } catch (error) {
       console.log(error);
     }
   };  
 
-  const onPressPublicate = () => {    
+  const onPressPublicate = async () => {    
     if (!nameFoto || !locationAddress) {
       Alert.alert("fill up inputs!");
       return;
-    }        
-    writeDataToFirestore()
+    } 
+    
     navigation.navigate("PostsScreen");
-    const fotoObj = {
-      id: nanoid(),
+    const fotoObj = {      
       fotoUri: foto,
       fotoName: nameFoto,
       fotoLocationAddress: locationAddress,
-      fotoCoords: fotoCoords
+      fotoCountry: fotoCountry,
+      fotoCoords: fotoCoords,
+      fotoLikes: 0,
+      fotoCommentsNumber: 0,
+      // comments: [],
+      userUid: user.userUid
     }
-    dispatch(fotoData(fotoObj))
+    const collectionName = 'foto'
+    const documentId = await writeDataToFirestore(fotoObj, collectionName)    
+    await updateDataInFirestoreId(collectionName, documentId);
+    const fotoObjToUpdate = {      
+      fotoUri: foto,
+      fotoName: nameFoto,
+      fotoLocationAddress: locationAddress,
+      fotoCountry: fotoCountry,
+      fotoCoords: fotoCoords,
+      fotoLikes: 0,
+      fotoCommentsNumber: 0,
+      // comments: [],
+      userUid: user.userUid,
+      documentId: documentId,
+    }
+    dispatch(fotoData(fotoObjToUpdate))
+    //updateDataInFirestore();
     setNameFoto(null);
     setLocationAddres(null);
   };

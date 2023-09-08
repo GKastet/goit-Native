@@ -5,13 +5,10 @@ import { logout } from "../../config";
 
 const GoBackBtn = () => {
   const navigation = useNavigation()
-  const onPressGoBack = () => {
-    navigation.goBack()
-    logout()
-  }
+  
   return (
     <Pressable
-      onPress={() => onPressGoBack}
+      onPress={() => navigation.goBack()}
       style={{ marginLeft: 10 }}
     >
       <Feather
