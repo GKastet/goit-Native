@@ -18,19 +18,25 @@
       "supportsTablet": true
     },
     "android": {
-       "softwareKeyboardLayoutMode": "pan",
-       "config":{
-        "googleMaps":{
+      "softwareKeyboardLayoutMode": "pan",
+      "config": {
+        "googleMaps": {
           "apiKey": "AIzaSyBVX7tSMJO_-BnNRm4oR_Em2zpIy7mkQTY"
         }
-       },        
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.gkastet.AwesomeProject"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e415fe41-0a83-4d32-9441-cf2a4e88d775"
+      }
     }
   }
 }
