@@ -1,18 +1,15 @@
-//AIzaSyBVX7tSMJO_-BnNRm4oR_Em2zpIy7mkQTY
 import { useRoute } from "@react-navigation/native";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
+const MapScreen = ({ route }) => {
+  //console.log('route', route.params.data);
+  const fotoCoordsLatidude = route.params.data.latidude;
+  const fotoCoordsLongitude = route.params.data.longitude;
 
-const MapScreen = ({route}) => {
-  
-  
-//console.log('route', route.params.data);
-const fotoCoordsLatidude = route.params.data.latidude
-const fotoCoordsLongitude = route.params.data.longitude
-
-  
-  const { params: {data} } = useRoute();
+  const {
+    params: { data },
+  } = useRoute();
   console.log(data);
   return (
     <View style={styles.container}>
@@ -53,8 +50,11 @@ const fotoCoordsLongitude = route.params.data.longitude
         <Marker
           title="I am here"
           // coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
-          coordinate={{ latitude: fotoCoordsLatidude, longitude: fotoCoordsLongitude }}
-          description='Hello'
+          coordinate={{
+            latitude: fotoCoordsLatidude,
+            longitude: fotoCoordsLongitude,
+          }}
+          description="Hello"
         />
       </MapView>
     </View>

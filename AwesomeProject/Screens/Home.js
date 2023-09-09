@@ -1,10 +1,10 @@
 import { Pressable, StyleSheet, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
-import { useNavigation } from "@react-navigation/native";
 import { LogOutBtn } from "../components/Buttons/logOutBtn";
 
 //import { PostsScreen, CreatePostsScreen, ProfileScreen } from "../Screens";

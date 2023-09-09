@@ -5,8 +5,10 @@ export const SingleComment = ({ commentsText, isIdEqual, commentDatum }) => {
   // console.log("isIdEqual", isIdEqual);
 
   return (
-    <View style={!isIdEqual ? styles.commentAllBox : styles.commentAllBoxReverse } >
-       {/* <View style={styles.commentAllBox} > */}
+    <View
+      style={!isIdEqual ? styles.commentAllBox : styles.commentAllBoxReverse}
+    >
+      {/* <View style={styles.commentAllBox} > */}
       <View style={styles.imgThumb}>
         <Image style={styles.img} />
       </View>
@@ -18,11 +20,6 @@ export const SingleComment = ({ commentsText, isIdEqual, commentDatum }) => {
         <Text style={styles.comment}>{commentsText}</Text>
         <Text style={styles.datum}>{commentDatum}</Text>
       </View>
-
-      {/* <View style = {styles.commentBox}>        
-        <Text style={styles.comment}></Text>
-        <Text>Data</Text>
-      </View> */}
     </View>
   );
 };
@@ -68,7 +65,7 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   datum: {
-    marginTop: 'auto',
+    marginTop: "auto",
     fontFamily: "Roboto-Regular",
     fontSize: 10,
     color: "#BDBDBD",

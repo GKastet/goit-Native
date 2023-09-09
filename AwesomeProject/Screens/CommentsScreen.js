@@ -1,11 +1,9 @@
-import { useNavigation } from "@react-navigation/native";
 import {
   Image,
   Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from "react-native";
@@ -42,11 +40,11 @@ const CommentsScreen = ({ route }) => {
 
   const onSendCommentPress = async () => {
     //   const currentDate = new Date();
-//   const day = currentDate.getDate();
-//   const month = currentDate.getMonth()+1;
-//   const year = currentDate.getFullYear();
-//   const hours = currentDate.getHours();
-// const minutes = currentDate.getMinutes();
+    //   const day = currentDate.getDate();
+    //   const month = currentDate.getMonth()+1;
+    //   const year = currentDate.getFullYear();
+    //   const hours = currentDate.getHours();
+    // const minutes = currentDate.getMinutes();
     const date = new Date();
     const options = {
       year: "numeric",
@@ -79,8 +77,7 @@ const CommentsScreen = ({ route }) => {
       },
     };
     // console.log("commentsDocumentId", documentId);
-    await updateDataInFirestoreId("comments", documentId, fotoId);
-    // await updateDataInFirestoreId("comments", documentId, fotoId);
+    await updateDataInFirestoreId("comments", documentId, fotoId);    
     dispatch(fotoAddComments(commentToStore));
     setComment("");
   };
@@ -91,8 +88,7 @@ const CommentsScreen = ({ route }) => {
         <Image
           style={styles.foto}
           source={
-            foto ? { uri: `${foto}` } : require("../img/PhotoBG.png")
-            //require("../img/PhotoBG.png")
+            foto ? { uri: `${foto}` } : require("../img/PhotoBG.png")           
           }
         />
       </View>
@@ -101,13 +97,13 @@ const CommentsScreen = ({ route }) => {
         {filteredComments?.map((comment, index, array) => {
           //console.log('uid', comment.data.userUid);
 
-          const previousUserComment = index > 0 ? array[index - 1] : null;          
+          const previousUserComment = index > 0 ? array[index - 1] : null;
           const isIdEqual = !previousUserComment
             ? false
             : comment.data.userUid === previousUserComment.data.userUid
             ? false
             : true;
-          
+
           return (
             <SingleComment
               key={nanoid()}
@@ -199,4 +195,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-

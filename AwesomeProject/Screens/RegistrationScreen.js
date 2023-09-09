@@ -10,11 +10,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  Button,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { AddImgButton } from "../components/Buttons/addImgButton";
 import { RegistrationForm } from "../components/Forms/registrationForm";
-import { Link, useNavigation } from "@react-navigation/native";
 
 const RegistrationScreen = () => {
   const navigation = useNavigation();

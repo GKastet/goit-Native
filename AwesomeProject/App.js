@@ -95,28 +95,3 @@ export default function App() {
     </>
   );
 }
-
-
-// // Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
-// // TODO: Add SDKs for Firebase products that you want to use
-// // https://firebase.google.com/docs/web/setup#available-libraries
-
-// // Your web app's Firebase configuration
-// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyARFzU1aK-qr6egqJwjB6QXEGy_t6QSkpg",
-//   authDomain: "awesome-react-native-f31a2.firebaseapp.com",
-//   projectId: "awesome-react-native-f31a2",
-//   storageBucket: "awesome-react-native-f31a2.appspot.com",
-//   messagingSenderId: "345423250264",
-//   appId: "1:345423250264:web:0547061730e82dd5db9b2d",
-//   measurementId: "G-M29T46E10S"
-// };
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-
-//https://awesome-react-native-f31a2-default-rtdb.firebaseio.com/

@@ -1,11 +1,10 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { logout } from "../../config";
 
 const GoBackBtn = () => {
-  const navigation = useNavigation()
-  
+  const navigation = useNavigation();
+
   return (
     <Pressable
       onPress={() => navigation.goBack()}

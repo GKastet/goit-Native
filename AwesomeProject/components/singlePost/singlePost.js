@@ -5,22 +5,22 @@ import { useSelector } from "react-redux";
 import { selectCommentsData } from "../../redux/selectors";
 
 const SinglePost = ({ foto }) => {
-  const commentsArr = useSelector(selectCommentsData)
-  
+  const commentsArr = useSelector(selectCommentsData);
   const navigation = useNavigation();
-
   //console.log('fotoSinglePost', foto);
 
-  const filteredComments = commentsArr?.filter(comment => comment.data.fotoId === foto.updateId).length;
+  const filteredComments = commentsArr?.filter(
+    (comment) => comment.data.fotoId === foto.updateId
+  ).length;
   //console.log('filteredComments', filteredComments);
 
   const onCommentsIconPress = () => {
-    if(!foto)return;
+    if (!foto) return;
     navigation.navigate("CommentsScreen", { data: foto });
   };
 
   const onLocationIconPress = () => {
-    if(!foto)return;
+    if (!foto) return;
     // navigation.navigate("MapScreen", { data: "test" });
     navigation.navigate("MapScreen", { data: foto.fotoCoords });
   };
@@ -44,7 +44,7 @@ const SinglePost = ({ foto }) => {
             <Feather
               name="message-circle"
               size={24}
-              color={filteredComments? "#FF6C00" : "#BDBDBD"}
+              color={filteredComments ? "#FF6C00" : "#BDBDBD"}
             />
           </Pressable>
           <Text style={styles.commentsCounter}>{filteredComments}</Text>

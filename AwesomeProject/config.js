@@ -1,14 +1,11 @@
 // Для роботи із firebase обовʼязково треба ініціалізувати проект
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { initializeApp } from "firebase/app";
-
 // Функція для підключення авторизації в проект
 import {
   createUserWithEmailAndPassword,
-  getAuth,
+  //getAuth,
   initializeAuth,
-  onAuthStateChanged,
-  setPersistence,
+  onAuthStateChanged,  
   signInWithEmailAndPassword,
   signOut,
   getReactNativePersistence,
@@ -20,8 +17,6 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 //import { getAnalytics } from "firebase/analytics";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
-
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyARFzU1aK-qr6egqJwjB6QXEGy_t6QSkpg",
@@ -49,24 +44,6 @@ export const authStateChanged = async (onChange = () => {}) => {
   });
 };
 
-// onAuthStateChanged(auth, async (user) => {
-//     if (user) {
-//       // User is signed in, you can store user data in AsyncStorage
-//       try {
-//         await AsyncStorage.setItem("user", JSON.stringify(user));
-//       } catch (error) {
-//         console.error("Error storing user data:", error);
-//       }
-//     } else {
-//       // User is signed out, you can clear user data from AsyncStorage
-//       try {
-//         await AsyncStorage.removeItem("user");
-//       } catch (error) {
-//         console.error("Error removing user data:", error);
-//       }
-//     }
-//   });
-
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
@@ -77,17 +54,7 @@ export const registerDB = async (email, password, login) => {
     await updateProfile(auth.currentUser, {
               displayName: login,
                //photoURL: avatar,
-            });           
-
-    // try {
-    //     await createUserWithEmailAndPassword(auth, email, password);
-    //     await updateProfile(auth.currentUser, {
-    //       displayName: login,
-    //       photoURL: avatar,
-    //     });
-    //     const { uid, displayName, mail, photoURL } = auth.currentUser;
-    //     return { uid, displayName, mail, photoURL };
-    
+            });               
   } catch (error) {
     if (error.code === "auth/invalid-email") {
       console.log("errorEmail", error.code);

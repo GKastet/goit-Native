@@ -11,10 +11,12 @@ import { StartButton } from "../Buttons/startButton";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { userRegister } from "../../redux/Slices/userSlice";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth, loginDB } from '../../config';
+import { loginDB } from "../../config";
 import { getDataFromFirestore } from "../Helpers/helpers";
-import { commentsAllApiAction, fotoDataApiAction } from "../../redux/Slices/fotoSlice";
+import {
+  commentsAllApiAction,
+  fotoDataApiAction,
+} from "../../redux/Slices/fotoSlice";
 
 export const LogInForm = () => {
   const [email, setEmail] = useState("");
@@ -33,33 +35,30 @@ export const LogInForm = () => {
   };
 
   const onPressLogIn = async () => {
-    // if(!email || !password){
-    //   Alert.alert('Please, fill up all inputs 😉')
-    //   return
-    // }else if(password?.length < 6){
-    //   Alert.alert('Password must be min 6 characters 😉')
-    //   return
-    // }
-    const userData = await loginDB(email, password)
-    const fotoDataApi = await getDataFromFirestore (`foto`)
-    const commentsAllApi = await getDataFromFirestore (`comments`)
+    if (!email || !password) {
+      Alert.alert("Please, fill up all inputs 😉");
+      return;
+    } else if (password?.length < 6) {
+      Alert.alert("Password must be min 6 characters 😉");
+      return;
+    }
+    const userData = await loginDB(email, password);
+    const fotoDataApi = await getDataFromFirestore(`foto`);
+    const commentsAllApi = await getDataFromFirestore(`comments`);
     // console.log('fotoDataApi', fotoDataApi);
-    console.log('commentsAllApi', commentsAllApi);
+    //console.log('commentsAllApi', commentsAllApi);
 
     const userObj = {
-      userLogin: userData.displayName,      
+      userLogin: userData.displayName,
       userEmail: userData.email,
-      userUid: userData.uid      
-    }
-    dispatch(userRegister(userObj))
-    dispatch(fotoDataApiAction(fotoDataApi))
-    dispatch(commentsAllApiAction(commentsAllApi)) //
-
-
+      userUid: userData.uid,
+    };
+    dispatch(userRegister(userObj));
+    dispatch(fotoDataApiAction(fotoDataApi));
+    dispatch(commentsAllApiAction(commentsAllApi));
     setEmail("");
     setPassword("");
     navigation.navigate("Home");
-    // clear()
   };
 
   const isFocus = (name) => {
@@ -123,7 +122,7 @@ export const LogInForm = () => {
           title={"Увійти"}
           onPress={onPressLogIn}
           bcgColor="#FF6C00"
-          textColor='#fff'
+          textColor="#fff"
         />
       </View>
     </>

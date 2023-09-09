@@ -30,8 +30,7 @@ export const writeDataToFirestore = async (fotoObj, collectionName) => {
       fotoCommentsNumber,
       userUid,
     });
-    console.log("Document written with ID: ", docRef.id);
-    // await updateDataInFirestoreId('foto', docRef.id);
+    console.log("Document written with ID: ", docRef.id);    
     return docRef.id;
   } catch (e) {
     console.error("Error adding document: ", e);

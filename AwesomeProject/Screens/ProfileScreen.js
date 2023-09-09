@@ -12,14 +12,11 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-
-import { AddImgButton } from "../components/Buttons/addImgButton";
-//import SinglePostProfile from "../components/singlePost/singlePostProfile";
 import { nanoid } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { selectFotoData, selectUserData } from "../redux/selectors";
+import { AddImgButton } from "../components/Buttons/addImgButton";
 import { LogOutBtn } from "../components/Buttons/logOutBtn";
-//import SinglePostProfile from "../components/singlePost/singlePostsProfile";
 import SinglePost from "../components/singlePost/singlePost";
 import SinglePostProfile from "../components/singlePost/singlePostsProfile";
 
@@ -31,8 +28,7 @@ const ProfileScreen = () => {
   
   const onAddImgBtnPress = () => {
     console.log("Add img button pressed");
-  };
-  
+  };  
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -57,11 +53,7 @@ const ProfileScreen = () => {
                 <Text style={styles.text}>{user?.userLogin ? user.userLogin : 'Ivan Mazepa'}</Text>
                 <ScrollView>                
                   {fotoArr.length ? (
-                    fotoArr?.filter(foto=>foto.data.userUid === userId).map((foto) => (
-                      // <SinglePost
-                      //   key={nanoid()}
-                      //   foto={foto.data}
-                      // />
+                    fotoArr?.filter(foto=>foto.data.userUid === userId).map((foto) => (                      
                       <SinglePostProfile
                         key={nanoid()}
                         foto={foto}

@@ -10,8 +10,8 @@ import {
   Platform,
   Pressable,
 } from "react-native";
-import { LogInForm } from "../components/Forms/logInForm";
 import { useNavigation } from "@react-navigation/native";
+import { LogInForm } from "../components/Forms/logInForm";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -31,9 +31,7 @@ const LoginScreen = () => {
           >
             <View style={styles.containerL}>
               <Text style={styles.text}>Увійти</Text>
-
               <LogInForm />
-
               <View style={styles.bottomTextBox}>
                 <Text style={styles.bottomText}>Немає акаунту?</Text>
                 <Pressable onPress={() => navigation.navigate("Registration")}>
@@ -90,9 +88,9 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Medium",
     fontSize: 30,
   },
-  bottomTextBox:{
-    display: 'flex',
-    flexDirection: 'row'
+  bottomTextBox: {
+    display: "flex",
+    flexDirection: "row",
   },
 
   bottomText: {

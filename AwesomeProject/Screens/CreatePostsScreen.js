@@ -12,49 +12,47 @@ import {
   View,
 } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { Feather } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
-import { StartButton } from "../components/Buttons/startButton";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { Feather } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
-
-import { useNavigation } from "@react-navigation/native";
 // import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
-import { useDispatch, useSelector } from "react-redux";
+
+import {
+  updateDataInFirestoreId,
+  writeDataToFirestore,
+} from "../components/Helpers/helpers";
 import { fotoData } from "../redux/Slices/fotoSlice";
-import { nanoid } from "@reduxjs/toolkit";
-import { updateDataInFirestoreId, writeDataToFirestore } from "../components/Helpers/helpers";
+import { StartButton } from "../components/Buttons/startButton";
 import { selectUserData } from "../redux/selectors";
 // import { PROVIDER_GOOGLE } from "react-native-maps";
 
 const CreatePostsScreen = () => {
-  const user = useSelector(selectUserData)
-  
-  const [nameFoto, setNameFoto] = useState(null);  
+  const user = useSelector(selectUserData);
+
+  const [nameFoto, setNameFoto] = useState(null);
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isPlaceFocus, setIsPlaceFocus] = useState(false);
-
   //const [locationCoords, setLocationCoords] = useState(null);
   const [locationAddress, setLocationAddres] = useState(null);
   const [fotoCountry, setFotoCountry] = useState(null);
-
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [foto, setFoto] = useState(null);
-  
   const [fotoCoords, setFotoCoords] = useState(null);
 
   const navigation = useNavigation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
       await Location.requestForegroundPermissionsAsync();
-    })();   
+    })();
 
     (async () => {
       let locationPermission =
@@ -63,7 +61,6 @@ const CreatePostsScreen = () => {
         Alert.alert("Permission to access location is denied");
         console.log("Permission to access location is denied");
       }
-    
     })();
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -85,59 +82,42 @@ const CreatePostsScreen = () => {
         ? Camera.Constants.Type.front
         : Camera.Constants.Type.back
     );
-  }; 
-  
-  
+  };
 
   const fixFoto = async () => {
     // if(foto) return
     try {
       const location = await Location.getCurrentPositionAsync();
-      
+
       const address = await Location.reverseGeocodeAsync({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-      });            
+      });
       const newLatitude = location.coords.latitude;
-      const newLongitude = location.coords.longitude;            
-      setFotoCoords({latidude: newLatitude, longitude: newLongitude});
-      
-      
-      const cityFoto = address[0].city || address[0].subregion      
-      if(cameraRef){
+      const newLongitude = location.coords.longitude;
+      setFotoCoords({ latidude: newLatitude, longitude: newLongitude });
+
+      const cityFoto = address[0].city || address[0].subregion;
+      if (cameraRef) {
         const { uri } = await cameraRef.takePictureAsync();
         await MediaLibrary.createAssetAsync(uri);
-        setFoto(uri);        
+        setFoto(uri);
         setLocationAddres(`${cityFoto}, ${address[0].country}`);
-        setFotoCountry(address[0].country)
-      }      
+        setFotoCountry(address[0].country);
+      }
     } catch (error) {
       console.log(error);
     }
-  };  
+  };
 
-  const onPressPublicate = async () => {    
+  const onPressPublicate = async () => {
     if (!nameFoto || !locationAddress) {
       Alert.alert("fill up inputs!");
       return;
-    } 
-    
-    navigation.navigate("PostsScreen");
-    const fotoObj = {      
-      fotoUri: foto,
-      fotoName: nameFoto,
-      fotoLocationAddress: locationAddress,
-      fotoCountry: fotoCountry,
-      fotoCoords: fotoCoords,
-      fotoLikes: 0,
-      fotoCommentsNumber: 0,
-      // comments: [],
-      userUid: user.userUid
     }
-    const collectionName = 'foto'
-    const documentId = await writeDataToFirestore(fotoObj, collectionName)    
-    await updateDataInFirestoreId(collectionName, documentId);
-    const fotoObjToUpdate = {      
+
+    navigation.navigate("PostsScreen");
+    const fotoObj = {
       fotoUri: foto,
       fotoName: nameFoto,
       fotoLocationAddress: locationAddress,
@@ -145,12 +125,23 @@ const CreatePostsScreen = () => {
       fotoCoords: fotoCoords,
       fotoLikes: 0,
       fotoCommentsNumber: 0,
-      // comments: [],
+      userUid: user.userUid,
+    };
+    const collectionName = "foto";
+    const documentId = await writeDataToFirestore(fotoObj, collectionName);
+    await updateDataInFirestoreId(collectionName, documentId);
+    const fotoObjToUpdate = {
+      fotoUri: foto,
+      fotoName: nameFoto,
+      fotoLocationAddress: locationAddress,
+      fotoCountry: fotoCountry,
+      fotoCoords: fotoCoords,
+      fotoLikes: 0,
+      fotoCommentsNumber: 0,
       userUid: user.userUid,
       documentId: documentId,
-    }
-    dispatch(fotoData(fotoObjToUpdate))
-    //updateDataInFirestore();
+    };
+    dispatch(fotoData(fotoObjToUpdate));
     setNameFoto(null);
     setLocationAddres(null);
   };
@@ -175,7 +166,7 @@ const CreatePostsScreen = () => {
       return;
     }
     return;
-  };  
+  };
 
   const reset = () => {
     setFoto(null);
@@ -203,7 +194,7 @@ const CreatePostsScreen = () => {
                     style={{
                       ...styles.cameraBox,
                       backgroundColor: "rgba(255, 255, 255, 0.3)",
-                    }}                    
+                    }}
                     onPress={reset}
                   >
                     <FontAwesome
@@ -283,7 +274,7 @@ const CreatePostsScreen = () => {
                 <TextInput
                   placeholder="Місцевість..."
                   placeholderTextColor="#BDBDBD"
-                  value={locationAddress}                  
+                  value={locationAddress}
                   // value={place}
                   // onChangeText={setPlace}
                   maxLength={36}
@@ -310,8 +301,7 @@ const CreatePostsScreen = () => {
               textColor={nameFoto && locationAddress ? "#fff" : "#BDBDBD"}
             />
           </View>
-          <View style={styles.containerMap}>            
-          </View>
+          <View style={styles.containerMap}></View>
           <Pressable
             style={styles.basket}
             onPress={reset}
@@ -357,7 +347,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     backgroundColor: "#F6F6F6",
-    borderRadius: 8,    
+    borderRadius: 8,
   },
   text: {
     fontFamily: "Roboto-Regular",
@@ -460,5 +450,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     transform: [{ translateX: -30 }, { translateY: -30 }],
-  },  
+  },
 });

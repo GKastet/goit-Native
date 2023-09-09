@@ -1,9 +1,7 @@
-import { TouchableOpacity, StyleSheet, Text, View, Button, Pressable } from "react-native";
-import { AntDesign } from '@expo/vector-icons'
-
+import { StyleSheet, Pressable } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 export const AddImgButton = ({ onPress }) => {
-
   // const pickImage = async () => {
   //   // No permissions request is necessary for launching the image library
   //   let result = await ImagePicker.launchImageLibraryAsync({
@@ -18,18 +16,18 @@ export const AddImgButton = ({ onPress }) => {
   //     // console.log(avatar);
   //   }
   // };
-
-
-
   return (
-    
-    <Pressable       
+    <Pressable
       style={styles.buttonContainer}
-      onPress={()=>onPress()}
+      onPress={() => onPress()}
+      // onPress={()=>pickImage()}
     >
-      <AntDesign name="pluscircleo" size={24} color="orange" />
+      <AntDesign
+        name="pluscircleo"
+        size={24}
+        color="orange"
+      />
     </Pressable>
-    
   );
 };
 
@@ -43,6 +41,6 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 0,
     borderRadius: 50,
-    backgroundColor: "white",    
-  },  
+    backgroundColor: "white",
+  },
 });

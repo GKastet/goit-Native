@@ -12,58 +12,48 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { userRegister } from "../../redux/Slices/userSlice";
 
-import { registerDB } from '../../config';
+import { registerDB } from "../../config";
 
 export const RegistrationForm = () => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [isLoginFocus, setIsLoginFocus] = useState(false);
   const [isEmailFocus, setIsEmailFocus] = useState(false);
   const [isPasswordFocus, setIsPasswordFocus] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
   const onSubmitRegistration = async () => {
-    // if(!login || !email || !password){
-    //   Alert.alert('Please, fill up all inputs 😉')
-    //   return
-    // }else if(password?.length < 6){
-    //   Alert.alert('Password must be min 6 characters 😉')
-    //   return
-    // }
+    if (!login || !email || !password) {
+      Alert.alert("Please, fill up all inputs 😉");
+      return;
+    } else if (password?.length < 6) {
+      Alert.alert("Password must be min 6 characters 😉");
+      return;
+    }
     // console.log("login:", login);
     // console.log("email:", email);
     // console.log("password:", password);
-    //Alert.alert(`login: ${login}, email: ${email}, password: ${password}`);
-     await registerDB( email, password, login )
-    
-      
+    await registerDB(email, password, login);
+
     const userObj = {
       userLogin: login,
-      userEmail: email,      
-    }
-    dispatch(userRegister(userObj))
+      userEmail: email,
+    };
+    dispatch(userRegister(userObj));
     setLogin("");
     setEmail("");
     setPassword("");
-     navigation.navigate("Home");
-    
+    navigation.navigate("Home");
     //navigation.navigate("Home", {screen: 'PostsScreen', params: {data: 'from registration'}});
-  
-    ;
   };
-
-
 
   const isFocus = (name) => {
     if (name === "login") {
@@ -140,7 +130,7 @@ export const RegistrationForm = () => {
           title={"Зареєструватися"}
           onPress={onSubmitRegistration}
           bcgColor="#FF6C00"
-          textColor='#fff'
+          textColor="#fff"
         />
       </View>
     </>

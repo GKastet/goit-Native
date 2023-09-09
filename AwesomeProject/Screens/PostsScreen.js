@@ -1,5 +1,4 @@
 import {
-  FlatList,
   Image,
   SafeAreaView,
   ScrollView,
@@ -7,70 +6,22 @@ import {
   Text,
   View,
 } from "react-native";
-//import SinglePost from "../components/singlePost/SinglePost";
-import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {  
-  selectFotoData, selectUserData,  
-} from "../redux/selectors";
+import { useSelector } from "react-redux";
+import { selectFotoData, selectUserData } from "../redux/selectors";
 import { nanoid } from "@reduxjs/toolkit";
 import SinglePost from "../components/singlePost/singlePost";
-import { getDataFromFirestore } from "../components/Helpers/helpers";
 
 const PostsScreen = ({ route }) => {
   //console.log(route);
-  const user = useSelector(selectUserData)  
+  const user = useSelector(selectUserData);
   const fotoArrState = useSelector(selectFotoData);
-  const [fotoArr, setFotoArr] = useState(fotoArrState)
+  const [fotoArr, setFotoArr] = useState(fotoArrState);
   //console.log("fotoArrPostsScreen", fotoArr);
-  
 
-  useEffect(()=>{
-    setFotoArr(fotoArrState)
-  }, [fotoArrState])
-
-  //const dispatch = useDispatch()
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // let receivedDataFromFirestore = null;
-
-  // async function dataFromFirestore(){
-  //   const getData = await getDataFromFirestore()
-  //   console.log("Fetched Data:", getData);
-  //   receivedDataFromFirestore = getData
-  //   console.log('getData2', receivedDataFromFirestore.map((item) => item.data))
-  //   // return qwe
-  // }
-  // dataFromFirestore();
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-  // const fotoArr = [
-  //   {
-  //     fotoCoords: { latidude: 48.592153, longitude: 17.8297492 },
-  //     fotoLocationAddress: "Piešťany, Словакия",
-  //     fotoName: "123",
-  //     fotoUri:
-  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAwesomeProject-8d38cc16-803f-4136-9141-a2fd32ada805/Camera/f7ab5df5-9610-46b4-be7f-8683c58dce5a.jpg",
-  //     id: "bPLlunjGD8nV5xVANryXs",
-  //   },
-  //   {
-  //     fotoCoords: { latidude: 48.592153, longitude: 17.8297492 },
-  //     fotoLocationAddress: "Piešťany, Словакия",
-  //     fotoName: "123",
-  //     fotoUri:
-  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAwesomeProject-8d38cc16-803f-4136-9141-a2fd32ada805/Camera/f7ab5df5-9610-46b4-be7f-8683c58dce5a.jpg",
-  //     id: "bPLlunjGD8nV5xVANryXs123456",
-  //   },
-  //   {
-  //     fotoCoords: { latidude: 48.592153, longitude: 17.8297492 },
-  //     fotoLocationAddress: "Piešťany, Словакия",
-  //     fotoName: "123",
-  //     fotoUri:
-  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAwesomeProject-8d38cc16-803f-4136-9141-a2fd32ada805/Camera/f7ab5df5-9610-46b4-be7f-8683c58dce5a.jpg",
-  //     id: "bPLlunjGD8nV5xVANryXs789789789",
-  //   },
-  // ];
-  //const fotoArr = []
-  // console.log("fotoArr", fotoArr);
+  useEffect(() => {
+    setFotoArr(fotoArrState);
+  }, [fotoArrState]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -79,8 +30,12 @@ const PostsScreen = ({ route }) => {
           <Image style={styles.imgUser} />
         </View>
         <View>
-          <Text style={styles.userName}>{user?.userLogin ? user.userLogin : 'Ivan Mazepa'}</Text>
-          <Text style={styles.userEmail}>{user?.userEmail ? user.userEmail : 'test@test.com'}</Text>
+          <Text style={styles.userName}>
+            {user?.userLogin ? user.userLogin : "Ivan Mazepa"}
+          </Text>
+          <Text style={styles.userEmail}>
+            {user?.userEmail ? user.userEmail : "test@test.com"}
+          </Text>
         </View>
       </View>
       <ScrollView>
@@ -94,7 +49,6 @@ const PostsScreen = ({ route }) => {
         ) : (
           <SinglePost />
         )}
-        
       </ScrollView>
       <View style={styles.allPosts}></View>
     </SafeAreaView>

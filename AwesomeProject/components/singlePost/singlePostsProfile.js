@@ -1,26 +1,25 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fotoLikesCounter } from "../../redux/Slices/fotoSlice";
-import { updateDataInFirestore, updateDataInFirestoreLikes } from "../Helpers/helpers";
+import { updateDataInFirestoreLikes } from "../Helpers/helpers";
 import { selectCommentsData } from "../../redux/selectors";
 
 const SinglePostProfile = ({ foto }) => {
-  const commentsArr = useSelector(selectCommentsData)
+  const commentsArr = useSelector(selectCommentsData);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const navigation = useNavigation();  
-  const dispatch = useDispatch()
-
-  
-  const fotoId = foto.id
-  const fotoNoFotoidData = foto.data
+  const fotoId = foto.id;
+  const fotoNoFotoidData = foto.data;
   //console.log('fotoProfile', foto);
   // console.log('commentsArrProfile', commentsArr);
-  const filteredComments = commentsArr?.filter(comment => comment.data.fotoId === fotoNoFotoidData.updateId).length;
+  const filteredComments = commentsArr?.filter(
+    (comment) => comment.data.fotoId === fotoNoFotoidData.updateId
+  ).length;
   // console.log('filteredComments', filteredComments);
-  let totalLikes = fotoNoFotoidData.fotoLikes
+  let totalLikes = fotoNoFotoidData.fotoLikes;
 
   const onCommentsIconPress = () => {
     if (!foto) return;
@@ -28,24 +27,24 @@ const SinglePostProfile = ({ foto }) => {
   };
 
   const onBtnLikesPress = () => {
-     totalLikes = totalLikes + 1;
-     console.log('LikedFotoUpdateID', fotoNoFotoidData.updateId);    
+    totalLikes = totalLikes + 1;
+    console.log("LikedFotoUpdateID", fotoNoFotoidData.updateId);
     const likesCounter = {
       totalLikes,
       fotoId,
-    }
-    const updateLikes={
-      collectionName: 'foto',
+    };
+    const updateLikes = {
+      collectionName: "foto",
       docId: foto.id,
       totalLikes,
-    }    
+    };
     // console.log('updateLikes', updateLikes);
     // console.log('likesCounter', likesCounter);
     dispatch(fotoLikesCounter(likesCounter));
     updateDataInFirestoreLikes(updateLikes);
-  };  
+  };
 
-  const onLocationIconPress = () => {    
+  const onLocationIconPress = () => {
     if (!foto) return;
     // navigation.navigate("MapScreen", { data: "test" });
     navigation.navigate("MapScreen", { data: foto.fotoCoords });
@@ -57,7 +56,9 @@ const SinglePostProfile = ({ foto }) => {
         <Image
           style={styles.foto}
           source={
-            foto ? { uri: `${fotoNoFotoidData.fotoUri}` } : require("../../img/PhotoBG.png")
+            foto
+              ? { uri: `${fotoNoFotoidData.fotoUri}` }
+              : require("../../img/PhotoBG.png")
           }
         />
       </View>
@@ -70,22 +71,23 @@ const SinglePostProfile = ({ foto }) => {
             <Feather
               name="message-circle"
               size={24}
-              color={filteredComments? "#FF6C00" : "#BDBDBD"}
-              // color="#BDBDBD"
+              color={filteredComments ? "#FF6C00" : "#BDBDBD"}
             />
-          </Pressable>          
+          </Pressable>
           <Text style={styles.commentsCounter}>{filteredComments}</Text>
           <Pressable
             onPress={onBtnLikesPress}
-            style={{marginLeft: 24}}            
+            style={{ marginLeft: 24 }}
           >
             <Feather
               name="thumbs-up"
               size={24}
-              color={fotoNoFotoidData?.fotoLikes? "#FF6C00": "#BDBDBD"}
+              color={fotoNoFotoidData?.fotoLikes ? "#FF6C00" : "#BDBDBD"}
             />
           </Pressable>
-          <Text style={styles.commentsCounter}>{fotoNoFotoidData.fotoLikes}</Text>
+          <Text style={styles.commentsCounter}>
+            {fotoNoFotoidData.fotoLikes}
+          </Text>
         </View>
         <View style={styles.fotoLocation}>
           <Pressable onPress={onLocationIconPress}>
@@ -96,7 +98,9 @@ const SinglePostProfile = ({ foto }) => {
             />
           </Pressable>
           <Text style={styles.locationName}>
-            {fotoNoFotoidData?.fotoCountry ? fotoNoFotoidData.fotoCountry : "address"}
+            {fotoNoFotoidData?.fotoCountry
+              ? fotoNoFotoidData.fotoCountry
+              : "address"}
           </Text>
         </View>
       </View>
@@ -159,9 +163,3 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
 });
-
-// fotoProfile {"data": {"fotoCommentsNumber": 0, "fotoCoords": {"latidude": 37.4217937, "longitude": -122.083922}, "fotoCountry": "United States", "fotoLikes": 2, "fotoLocationAddress": "Mountain View, United States", "fotoName": "222", "fotoUri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAwesomeProject-8d38cc16-803f-4136-9141-a2fd32ada805/Camera/72a87f94-0538-4b77-8841-e2245b12b8a8.jpg", "updateId": "sYeIeJrB3QtMK8YITJkC", "userUid": "AD67s6EfA3fFGvYTxnzAKHWSFbA3"}, "id": "sYeIeJrB3QtMK8YITJkC"}       
-// commentsArrProfile [{"data": {"comment": "to store 3", "fotoId": "RCZZQ0loBn34Qd6OuZWA", "updateId": "2Ncz1VETq6OMZRY5Q533"}, "id": "2Ncz1VETq6OMZRY5Q533"}, {"data": {"comment": "hello", "fotoId": "RCZZQ0loBn34Qd6OuZWA", "updateId": "D26jSMYzmOBhiTPF0sZ3"}, "id": "D26jSMYzmOBhiTPF0sZ3"}, {"data": {"comment": "to store 3", "fotoId": "RCZZQ0loBn34Qd6OuZWA", "updateId": "F52QQ3d1jiE7Bj2KR19n"}, "id": "F52QQ3d1jiE7Bj2KR19n"}, {"data": {"comment": "to store 2", "fotoId": "RCZZQ0loBn34Qd6OuZWA", "updateId": "P2wsNDSxMbYV584jUwai"}, "id": "P2wsNDSxMbYV584jUwai"}, {"data": {"comment": "to store 1", "fotoId": "RCZZQ0loBn34Qd6OuZWA", "updateId": "SaUcuKokwbCZrW1iUDKG"}, "id": "SaUcuKokwbCZrW1iUDKG"}, {"data": {"comment": "heloo123", "fotoId": "RCZZQ0loBn34Qd6OuZWA", "updateId": "VYHMmqIjCWWoYpw2Y9d9"}, "id": "VYHMmqIjCWWoYpw2Y9d9"}, {"data": {"comment": "qas", "fotoId": "RCZZQ0loBn34Qd6OuZWA", "updateId": 
-// "ZB6Qab44SNTIF9piv1wV"}, "id": "ZB6Qab44SNTIF9piv1wV"}, {"data": {"comment": "to store 1", "fotoId": "RCZZQ0loBn34Qd6OuZWA", "updateId": "smZ3qXk19m18cNGLRQ3R"}, "id": "smZ3qXk19m18cNGLRQ3R"}, {"data": {"comment": "hello1 hello2 hello3 hello4 hello5 hello5 hello6 hello7 hello8 hello9 hello10 ", "fotoId": "RCZZQ0loBn34Qd6OuZWA", "updateId": "suwOwQzKdnHqgrKtGoFH"}, "id": "suwOwQzKdnHqgrKtGoFH"}, {"data": {"comment": "asde", "fotoId": "mX8lQLoS9TM5AO6GoNEt", "updateId": "t2WzSn8DtvtwKTOlheC5"}, "id": "t2WzSn8DtvtwKTOlheC5"}, {"data": {"comment": "asd", "fotoId": "mX8lQLoS9TM5AO6GoNEt", "updateId": "vFxNofd46mVTVFsDQ2yr"}, "id": "vFxNofd46mVTVFsDQ2yr"}]
-// comments//fotoAllData {"fotoCommentsNumber": 0, "fotoCoords": {"latidude": 37.4217937, "longitude": -122.083922}, "fotoCountry": "United States", "fotoLikes": 2, "fotoLocationAddress": "Mountain View, United States", "fotoName": "2", "fotoUri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAwesomeProject-8d38cc16-803f-4136-9141-a2fd32ada805/Camera/abab5f24-b9bb-4576-a29f-9fd9c2b7ca4a.jpg", "updateId": "RCZZQ0loBn34Qd6OuZWA", "userUid": "AD67s6EfA3fFGvYTxnzAKHWSFbA3"}
-// LikedFoto {"data": {"fotoCommentsNumber": 0, "fotoCoords": {"latidude": 37.4217937, "longitude": -122.083922}, "fotoCountry": "United States", "fotoLikes": 2, "fotoLocationAddress": "Mountain View, United States", "fotoName": "2", "fotoUri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAwesomeProject-8d38cc16-803f-4136-9141-a2fd32ada805/Camera/abab5f24-b9bb-4576-a29f-9fd9c2b7ca4a.jpg", "updateId": "RCZZQ0loBn34Qd6OuZWA", "userUid": "AD67s6EfA3fFGvYTxnzAKHWSFbA3"}, "id": "RCZZQ0loBn34Qd6OuZWA"}

@@ -12,10 +12,8 @@ import {
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 import { userReducer } from "./Slices/userSlice";
 import { fotoReducer } from "./Slices/fotoSlice";
-
 
 const userPersistConfig = {
   key: "user",
