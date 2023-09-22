@@ -17,18 +17,9 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 //import { getAnalytics } from "firebase/analytics";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
+import firebaseConfigObj from "./firebaseConfig";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyARFzU1aK-qr6egqJwjB6QXEGy_t6QSkpg",
-  authDomain: "awesome-react-native-f31a2.firebaseapp.com",
-  databaseURL:
-    "<https://awesome-react-native-f31a2-default-rtdb.firebaseio.com>",
-  projectId: "awesome-react-native-f31a2",
-  storageBucket: "awesome-react-native-f31a2.appspot.com",
-  messagingSenderId: "345423250264",
-  appId: "1:345423250264:web:0547061730e82dd5db9b2d",
-  measurementId: "G-M29T46E10S",
-};
+const firebaseConfig = firebaseConfigObj;
 
 export const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
